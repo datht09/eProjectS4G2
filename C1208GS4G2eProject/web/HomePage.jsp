@@ -99,7 +99,7 @@
                     <ul class="ca-menu">
                         <li>
                             <a class="scroll-link" href="#profile" data-soffset="100">
-                                <span class="ca-icon"><img title="renova" src="images/icons/01.png"/></span>
+                                <span class="ca-icon"><img title="renova" src="../images/icons/01.png"/></span>
                                 <div class="ca-content">
                                     <h2 class="ca-main">My Profile</h2>
                                     <h3 class="ca-sub">Who i am ?</h3>
