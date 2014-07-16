@@ -101,27 +101,27 @@
                     <section class="container">
                         <div class="row add-top-main">
                             <article class="span12">
-                                <div class="thumb-icon"><img alt="renova" title="renova" src="images/icons/01.png"/></div>
+                                <div class="thumb-icon"><img src="images/icons/01.png"/></div>
                                 <h1 class="main-heading"><span>Login</span></h1>
                             </article>
                         </div>
 
                         <div class="row">
                             <article class="span12 text-center">
-                                <div id="fname"  class="alert alert-error error add-top">
+                                <div id="lName"  class="alert alert-error error add-top">
                                     Name must not be empty
                                 </div>
-                                <div id="fpass" class="alert alert-error  error add-top">
+                                <div id="lPass" class="alert alert-error  error add-top">
                                     Password must not be empty
                                 </div>
                             </article>
                         </div>
 
                         <div class="row add-bottom-main">
-                            <form name="myform" id="loginForm" action="sendcontact.php" enctype="multipart/form-data" method="post">
+                            <form name="loginForm" id="loginForm" action="sendcontact.php" enctype="multipart/form-data" method="post">
                                 <article class="span4 offset4">
-                                    <input size="100" type="text" name="name" id="username" placeholder="username">
-                                    <input type="text"  size="30" id="password" name="password" placeholder="password">
+                                    <input size="100" type="text" name="name" id="loginName" placeholder="username">
+                                    <input type="text"  size="30" id="loginPass" name="password" placeholder="password">
                                     <button type="submit" name="submit" id="submit" class="btn btn-renova-alt add-top-half">Login</button>
                                 </article>
                             </form>
@@ -157,7 +157,7 @@
                         <section class="container">
                             <div class="row add-top-main">
                                 <article class="span12">
-                                    <div class="thumb-icon"><img alt="renova" title="renova" src="images/icons/01.png"/></div>
+                                    <div class="thumb-icon"><img src="images/icons/01.png"/></div>
                                     <h1 class="main-heading"><span>Register</span></h1>
                                     <!--<h3 class="promo-text"><span>Lorem ipsum dolor sit amet, consectetur..</span></h3>-->
                                 </article>
@@ -165,30 +165,54 @@
 
                             <div class="row">
                                 <article class="span12 text-center">
-                                    <div id="fname"  class="alert alert-error error add-top">
-                                        Name must not be empty
+                                    <div id="rUserName"  class="alert alert-error error add-top">
+                                        Username must not be empty
                                     </div>
-                                    <div id="fmail" class="alert alert-error  error add-top">
+                                    <div id="rPass"  class="alert alert-error error add-top">
+                                        Password must not be empty
+                                    </div>
+                                    <div id="rConfirmPass"  class="alert alert-error error add-top">
+                                        Password does not match the confirm password
+                                    </div>
+                                    <div id="rDepartment"  class="alert alert-error error add-top">
+                                        Please select your department
+                                    </div>
+                                    <div id="rFullName"  class="alert alert-error error add-top">
+                                        Full name must not be empty
+                                    </div>
+                                    <div id="rEmail" class="alert alert-error  error add-top">
                                         Please provide a valid email
                                     </div>
-                                    <div id="fmsg" class="alert alert-error  error add-top">
-                                        Message should not be empty
+                                    <div id="rAddress"  class="alert alert-error error add-top">
+                                        Address must not be empty
+                                    </div>
+                                    <div id="rPhone"  class="alert alert-error error add-top">
+                                        Phone number is not valid
                                     </div>
                                 </article>
                             </div>
 
                             <div class="row add-bottom-main">
-                                <form name="myform" id="registerForm" action="sendcontact.php" enctype="multipart/form-data" method="post">
+                                <form name="registerForm" id="registerForm" action="sendcontact.php" enctype="multipart/form-data" method="post">
                                     <article class="span4 offset4">
-                                        <input size="100" type="text" name="username" id="username" placeholder="username">
-                                        <input size="100" type="text" name="password" id="password" placeholder="password">
-                                        <input size="100" type="text" name="cPassword" id="cPassword" placeholder="confirm password">
-                                        <input size="100" type="text" name="fullName" id="fullName" placeholder="full name">
-                                        <input type="text"  size="30" id="email" name="email" placeholder="email">
-                                        <input size="100" type="text" name="address" id="address" placeholder="address">
-                                        <input size="100" type="text" name="phone" id="phone" placeholder="phone number">
-                                        <input size="100" type="text" name="avatar" id="avatar" placeholder="avatar">
-                                        <input size="100" type="radio" name="department" id="department" placeholder="department">
+                                        <input size="100" type="text" name="username" id="registerUsername" placeholder="username">
+                                        <input size="100" type="text" name="password" id="registerPass" placeholder="password">
+                                        <input size="100" type="text" name="cPassword" id="registerConfirmPass" placeholder="confirm password">
+                                        <select id="registerDepartment" name="department">
+                                            <option value="">--- Select Department ---</option> 
+                                            <option value="educational">Educational Services</option>
+                                            <option value="management">Management Services</option>
+                                            <option value="learning">Learning Services</option>
+                                            <option value="internal">Internal Systems</option>
+                                            <option value="human">Human Resources</option>
+                                         </select>
+                                        <input size="100" type="text" name="fullName" id="registerFullName" placeholder="full name">
+                                        <input type="text"  size="100" id="registerEmail" name="email" placeholder="email">
+                                        <input size="100" type="text" name="address" id="registerAddress" placeholder="address">
+                                        <input size="100" type="text" name="phone" id="registerPhone" placeholder="phone number">
+                                        <!--<form action="UploadServlet" method="post" enctype="multipart/form-data">-->
+                                        <input type="file" name="file" size="100" />
+                                        <!--</form>-->
                                         <button type="submit" name="submit" id="submit" class="btn btn-renova-alt add-top-half">Register</button>
                                     </article>
                                 </form>
