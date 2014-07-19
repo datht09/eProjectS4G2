@@ -5,8 +5,8 @@
 <struts>
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
-        <action name="sendQuery" class="MyAction.sendQueryAction">
-            <result>Login.jsp</result>
+        <action name="loginAction" class="MyAction.loginAction">
+            <result>HomePage.jsp</result>
         </action>
     </package>
 </struts>

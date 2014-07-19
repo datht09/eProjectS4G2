@@ -118,10 +118,10 @@
                         </div>
 
                         <div class="row add-bottom-main">
-                            <form name="loginForm" id="loginForm" action="sendcontact.php" enctype="multipart/form-data" method="post">
+                            <form name="loginForm" id="loginForm" action="loginAction" enctype="multipart/form-data" method="post">
                                 <article class="span4 offset4">
-                                    <input size="100" type="text" name="name" id="loginName" placeholder="username">
-                                    <input type="text"  size="30" id="loginPass" name="password" placeholder="password">
+                                    <input size="100" type="text" name="user" id="loginName" placeholder="username">
+                                    <input type="password"  size="30" id="loginPass" name="pass" placeholder="password">
                                     <button type="submit" name="submit" id="submit" class="btn btn-renova-alt add-top-half">Login</button>
                                 </article>
                             </form>

@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="mrBean" scope="session" class="DataAccess.DBFunction"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +75,9 @@
 
     <body id="body">
 
+        <c:set var="user" value="${sessionScope.user}"/>
 
+        <c:set var="us" value="${mrBean.getAccDetails(user,1)}"/>
         <!--MAIN WRAPPER--> 
         <div class="main-wrapper">
             <!-- Mobile Only Navigation - 2 types each for (480px to 640px) and (640px to 960px) wide device screens -->
@@ -99,7 +103,7 @@
                     <ul class="ca-menu">
                         <li>
                             <a class="scroll-link" href="#profile" data-soffset="100">
-                                <span class="ca-icon"><img title="renova" src="../images/icons/01.png"/></span>
+                                <span class="ca-icon"><img title="renova" src="images/icons/01.png"/></span>
                                 <div class="ca-content">
                                     <h2 class="ca-main">My Profile</h2>
                                     <h3 class="ca-sub">Who i am ?</h3>
@@ -188,7 +192,7 @@
 
 
 
-<!--/ PROFILE -->
+            <!--/ PROFILE -->
             <section id="profile" class="master-section">
                 <section class="container-fluid inner mob-bg-remove">
                     <div class="row-fluid">
@@ -212,16 +216,18 @@
                             <div class="row">
                                 <article class="span6 offset3 testimonial-block">
                                     <div class="row-fluid">
+
                                         <article class="span6 offset3">
-                                            <img alt="renova" title="renova" src="images/testimonial/01.jpg"/>
+                                            <img alt="renova" title="renova" src="${us.imageurl}"/>
                                         </article>
-                                        <article class="span10 remove-left testimonial-content text-center" style="padding-left: 80px">
-                                            <p class="tes-text">Username:<span class="tes-client">KhoaNN</span></p>
-                                            <p class="tes-text">Fullname:<span class="tes-client">Khoa Nguyen</span></p>
-                                            <p class="tes-text">Department:<span class="tes-client">Developer</span></p>
-                                            <p class="tes-text">Email:<span class="tes-client">khoann_c00213@fpt.aptech.ac.vn</span></p>
-                                            <p class="tes-text">Phone number:<span class="tes-client">0986111986</span></p>
-                                            <p class="tes-text">Address:<span class="tes-client">Hanoi, Vietnam</span></p><br/>
+                                        <article class="span10 remove-left testimonial-content text-left" style="padding-left: 80px ; width: auto;">
+
+                                            <p class="tes-text">Username:<span class="tes-client">${user}</span></p>
+                                            <p class="tes-text">Fullname:<span class="tes-client">${us.fullname}</span></p>
+                                            <p class="tes-text">Department:<span class="tes-client">${us.departmentid}</span></p>
+                                            <p class="tes-text">Email:<span class="tes-client">${us.email}</span></p>
+                                            <p class="tes-text">Phone number:<span class="tes-client">${us.phone}</span></p>
+                                            <p class="tes-text">Address:<span class="tes-client">${us.address}</span></p><br/>
                                             <!--<h3 class="tes-client">Anne Rockland,<br/><span>Something LLC.</span></h3>-->
                                         </article>
                                     </div>
@@ -240,13 +246,13 @@
                     </div><!-- CONTAINER FOLIO-->
                 </div><!-- WRAPPER -->
             </section><!-- CONTENT-->
-<!--/ PROFILE END -->
+            <!--/ PROFILE END -->
 
 
 
 
 
-<!--/ NEWS -->
+            <!--/ NEWS -->
             <section id="news" class="bg-dark master-section">
                 <section class="container-fluid inner mob-bg-remove">
                     <div class="row-fluid">
@@ -434,13 +440,13 @@
                     </div><!--/ row-fluid-->   
                 </section><!--/ container-->
             </section><!--/ page-->
-<!--/ NEWS END -->
+            <!--/ NEWS END -->
 
 
 
 
 
-<!--/ REPORT -->
+            <!--/ REPORT -->
             <section id="report" class="bg-dark master-section">
                 <section class="container-fluid inner mob-bg-remove">
                     <div class="row-fluid add-bottom-main">
@@ -492,7 +498,7 @@
                                     </section> <!-- #options -->
                                 </article><!-- span12 : ends -->
                             </div><!-- row : ends -->
-                            
+
                             <div class="row">
                                 <article class="span12">
                                     <div id="container" class="clearfix portfolio"></div> <!-- #container -->
@@ -502,11 +508,11 @@
                     </div><!--/ row-fluid--> 
                 </section>
             </section><!--/ page-->
-<!--/ REPORT END -->
+            <!--/ REPORT END -->
 
 
 
-<!--/ NEW COMPLAINT -->
+            <!--/ NEW COMPLAINT -->
             <section id="complaint" class="bg-dark master-section">
                 <section class="container-fluid inner mob-bg-remove">
                     <div class="row-fluid">
@@ -545,11 +551,11 @@
                     </div><!--/ row-fluid-->   
                 </section><!--/ container-->
             </section><!--/ page-->
-<!--/ NEW COMPLAINT END -->
+            <!--/ NEW COMPLAINT END -->
 
 
 
-<!--/ FAQ -->
+            <!--/ FAQ -->
             <section id="faq" class="bg-dark master-section">
                 <section class="container-fluid inner mob-bg-remove">
                     <div class="row-fluid">
@@ -568,7 +574,7 @@
 
                 </section>
             </section>
-<!--/ FAQ END -->
+            <!--/ FAQ END -->
 
 
 
