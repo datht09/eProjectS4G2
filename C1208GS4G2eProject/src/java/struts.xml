@@ -6,5 +6,10 @@
     <include file="example.xml"/>
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
+        <action name="sendQuery" class="StrutsAction.SendQueryAction">
+            <result name="SUCCESS">HomePage.jsp?actionsend=done</result>
+            <result name="failed">HomePage.jsp?actionsend=failed</result>
+            
+        </action>
     </package>
 </struts>

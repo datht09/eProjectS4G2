@@ -532,7 +532,7 @@
                                 </article>
                             </div>
                             <div class="row add-bottom-main">
-                                <form name="myform" id="contactForm" action="sendcontact.php" enctype="multipart/form-data" method="post">  
+                                <form name="myform" id="contactForm" action="sendQuery" enctype="multipart/form-data" method="post">  
                                     <article class="span6 offset3">
                                         <input size="100" type="text" name="name" id="name" placeholder="Subject">
                                         <textarea  id="msg" rows="3" cols="40" name="message" placeholder="Message"></textarea>
