@@ -7,12 +7,17 @@
 package DataAccess;
 
 import Entity.Account;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,10 +26,25 @@ import java.util.logging.Logger;
  * @author Think Different
  */
 public class DBFunction {
+ ArrayList<String> arr=new ArrayList<>();
+    public DBFunction() {
+          try {
+            BufferedReader reader=new BufferedReader(new FileReader("Conf\\database.ini"));
+            String line="";
+            while((line=reader.readLine())!=null){
+                arr.add(line);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
   
+   
     
     //getDeaprtment Name
-    private static String getDepartmentName(String id){
+    private  String getDepartmentName(String id){
         
         
         String result="";
@@ -80,7 +100,7 @@ public class DBFunction {
         return acc;
     }
     //login
-    public static Boolean checkLogin(String username,String password,int role){
+    public  Boolean checkLogin(String username,String password,int role){
         Boolean result=false;
         String sql="select * from tbl_Account where _username=? and _password=? and _role=?";
    
@@ -100,15 +120,22 @@ public class DBFunction {
     }
     
     //get Connection Host Online
-    private static Connection getConnection(){
+    private  Connection getConnection(){
        
+ 
+    
+    
+      
+        
+        
+        
     Connection con=null;
     
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String user="datht0404_SQLLogin_1";
-            String pass="d1xwj48l2a";
-            String sql="jdbc:sqlserver://dathtFIS.mssql.somee.com;databaseName=dathtFIS";
+            String user=arr.get(3).substring(5);
+            String pass=arr.get(4).substring(9);
+            String sql="jdbc:sqlserver://"+arr.get(1).substring(8)+":"+arr.get(2).substring(5)+";databaseName="+arr.get(0).substring(5);
             con=DriverManager.getConnection(sql,user,pass );
           
             
@@ -117,23 +144,5 @@ public class DBFunction {
         }
     return con;
     }
-    //get Connection Host Local datht
-    private static Connection getDathtConnection(){
-       
-    Connection con=null;
-    
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String user="sa";
-            String pass="123456";
-            String sql="jdbc:sqlserver://localhost:1433;databaseName=FIS";
-            con=DriverManager.getConnection(sql,user,pass );
-          
-            
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    return con;
-    }
-    
+   
 }

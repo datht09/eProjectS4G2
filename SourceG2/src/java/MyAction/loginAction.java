@@ -53,7 +53,8 @@ public class loginAction extends ActionSupport implements SessionAware{
     
     @Override
     public String execute() throws Exception {
-       if(DBFunction.checkLogin(user, pass,1)){
+        DBFunction function=new DBFunction();
+       if(function.checkLogin(user, pass,1)){
           getSession().put("user",user);
            addActionMessage("Login Success");
            return SUCCESS;
