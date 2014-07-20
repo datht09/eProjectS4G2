@@ -76,8 +76,11 @@
     <body id="body">
 
         <c:set var="user" value="${sessionScope.user}"/>
-
+        <c:if test="${user==null}">
+            <c:redirect url="Login.jsp"/>
+        </c:if>
         <c:set var="us" value="${mrBean.getAccDetails(user,1)}"/>
+
         <!--MAIN WRAPPER--> 
         <div class="main-wrapper">
             <!-- Mobile Only Navigation - 2 types each for (480px to 640px) and (640px to 960px) wide device screens -->

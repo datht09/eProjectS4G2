@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <%@ taglib prefix="s" uri="/struts-tags" %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -66,7 +66,7 @@
     </head>
 
     <body id="body">
-
+        
         <!--MAIN WRAPPER--> 
         <div class="main-wrapper">
             <!-- Mobile Only Navigation - 2 types each for (480px to 640px) and (640px to 960px) wide device screens -->
@@ -120,7 +120,9 @@
                         <div class="row add-bottom-main">
                             <form name="loginForm" id="loginForm" action="loginAction" enctype="multipart/form-data" method="post">
                                 <article class="span4 offset4">
+                                    <s:actionerror />
                                     <input size="100" type="text" name="user" id="loginName" placeholder="username">
+                                   
                                     <input type="password"  size="30" id="loginPass" name="pass" placeholder="password">
                                     <button type="submit" name="submit" id="submit" class="btn btn-renova-alt add-top-half">Login</button>
                                 </article>

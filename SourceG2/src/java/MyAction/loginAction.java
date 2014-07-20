@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
+import javax.swing.ActionMap;
 
 /**
  *
@@ -54,8 +55,13 @@ public class loginAction extends ActionSupport implements SessionAware{
     public String execute() throws Exception {
        if(DBFunction.checkLogin(user, pass,1)){
           getSession().put("user",user);
+           addActionMessage("Login Success");
            return SUCCESS;
        }else{
+           if(getSession().containsKey("user")){
+               getSession().remove("user");
+           }
+           addActionError("Login:faied > Username or Password invalid !");
            return "FAILED";
        }
     }
