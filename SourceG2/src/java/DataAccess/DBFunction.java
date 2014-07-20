@@ -31,7 +31,7 @@ public class DBFunction {
          String sql="select * from tbl_Department where _id=?";
   
         try {
-            PreparedStatement preparedStatement=getDathtConnection().prepareStatement(sql);
+            PreparedStatement preparedStatement=getConnection().prepareStatement(sql);
             preparedStatement.setString(1, id);
             ResultSet rs=preparedStatement.executeQuery();
             while (rs.next()) {
@@ -54,7 +54,7 @@ public class DBFunction {
         
         try {
             
-            PreparedStatement preparedStatement=getDathtConnection().prepareStatement(sql);
+            PreparedStatement preparedStatement=getConnection().prepareStatement(sql);
             preparedStatement.setString(1, user);
             ResultSet rs=preparedStatement.executeQuery();
             while (rs.next()) {
@@ -85,7 +85,7 @@ public class DBFunction {
         String sql="select * from tbl_Account where _username=? and _password=? and _role=?";
    
         try {
-            PreparedStatement preparedStatement=getDathtConnection().prepareStatement(sql);
+            PreparedStatement preparedStatement=getConnection().prepareStatement(sql);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
             preparedStatement.setInt(3, role);
