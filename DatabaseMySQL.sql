@@ -46,7 +46,7 @@ _category varchar(10),
  foreign key (_username) references tbl_Account(_username),
  foreign key (_category) references tbl_QueryCategory(_id),
   foreign key (_department) references tbl_Department(_id),
-primary key(_username,_department)
+primary key(_username,_department,_category)
 
 );
 

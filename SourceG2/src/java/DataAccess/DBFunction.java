@@ -26,19 +26,10 @@ import java.util.logging.Logger;
  * @author Think Different
  */
 public class DBFunction {
- ArrayList<String> arr=new ArrayList<>();
+ 
+
     public DBFunction() {
-          try {
-            BufferedReader reader=new BufferedReader(new FileReader("Conf\\database.ini"));
-            String line="";
-            while((line=reader.readLine())!=null){
-                arr.add(line);
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       
     }
   
    
@@ -121,21 +112,14 @@ public class DBFunction {
     
     //get Connection Host Online
     private  Connection getConnection(){
-       
  
-    
-    
-      
-        
-        
-        
     Connection con=null;
     
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String user=arr.get(3).substring(5);
-            String pass=arr.get(4).substring(9);
-            String sql="jdbc:sqlserver://"+arr.get(1).substring(8)+":"+arr.get(2).substring(5)+";databaseName="+arr.get(0).substring(5);
+            String user="sa";
+            String pass="123456";
+            String sql="jdbc:sqlserver://localhost:1433;databaseName=FIS";
             con=DriverManager.getConnection(sql,user,pass );
           
             
