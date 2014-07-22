@@ -31,7 +31,6 @@ import java.util.logging.Logger;
  * @author Think Different
  */
 public class DBFunction {
-<<<<<<< HEAD
 
     ArrayList<String> arr = new ArrayList<>();
 
@@ -47,12 +46,6 @@ public class DBFunction {
         } catch (IOException ex) {
             Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
         }
-=======
- 
-
-    public DBFunction() {
-       
->>>>>>> bc614721b3b6e1fbea0c2fd49d546fc48aa163bb
     }
 
     //getDepartment Name
@@ -207,7 +200,7 @@ public class DBFunction {
     }
 
     //get Connection Host Online
-<<<<<<< HEAD
+
     private Connection getConnection() {
         Connection con = null;
 
@@ -217,22 +210,9 @@ public class DBFunction {
             String pass = "123456";
             String sql = "jdbc:sqlserver://localhost:1433;databaseName=FIS";
             con = DriverManager.getConnection(sql, user, pass);
-
-=======
-    private  Connection getConnection(){
- 
-    Connection con=null;
-    
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String user="sa";
-            String pass="123456";
-            String sql="jdbc:sqlserver://localhost:1433;databaseName=FIS";
-            con=DriverManager.getConnection(sql,user,pass );
-          
-            
->>>>>>> bc614721b3b6e1fbea0c2fd49d546fc48aa163bb
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
         }
         return con;
