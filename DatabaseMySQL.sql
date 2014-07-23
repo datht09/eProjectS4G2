@@ -59,8 +59,9 @@ _category varchar(10),
 _subject nvarchar(50) not null,
 _content text not null,
 _dateoflodging datetime default GETDATE(),
-_dateofclosing datetime not null,
+_dateofclosing datetime default DATEADD(day,7,GETDATE()),
 _status int default 0,  /*0=Pending ; 1=Processing; 2=Resolved; 3=Not Resolved ; 4=Cancel*/
+
  foreign key (_username) references tbl_Account(_username),
   foreign key (_departmentID) references tbl_Department(_id),
 foreign key (_category) references tbl_QueryCategory(_id)
@@ -72,6 +73,7 @@ _queryID integer not null,
 _username varchar(20)  not null,
 _content text not null,
 _date datetime default GETDATE(),
+_status int default 0, /* 0 =unread 1=read */
  foreign key (_queryID) references tbl_Query(_id),
 foreign key (_username) references tbl_Account(_username)
 

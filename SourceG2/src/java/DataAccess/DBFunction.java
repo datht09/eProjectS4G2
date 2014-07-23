@@ -111,7 +111,7 @@ public class DBFunction {
     }
     
     //get Connection Host Online
-    private  Connection getConnection(){
+    public Connection getConnection(){
  
     Connection con=null;
     
