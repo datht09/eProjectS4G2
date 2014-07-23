@@ -263,8 +263,8 @@
                         <section class="container">
                             <div class="row add-top-main">
                                 <article class="span12">
-                                    <div class="thumb-icon"><img alt="renova" title="renova" src="images/icons/06.png"/></div>
-                                    <h1 class="main-heading"><span>News</span></h1>
+                                    <div class="thumb-icon"><img src="images/icons/06.png"/></div>
+                                    <h1 class="main-heading"><span><a href="NewsPage.jsp">News</a></span></h1>
                                     <h3 class="promo-text"><span>You may not know</span></h3>
                                 </article>
                             </div>
@@ -277,25 +277,18 @@
                                                 <h5>June</h5>
                                                 <h4>2013</h4>
                                             </div>
-                                            <img alt="renova" title="renova" src="images/news/1.jpg"/>
+                                            <img src="images/news/1.jpg"/>
                                         </article>
                                     </div>
                                     <div>
                                         <div class="row-fluid">
                                             <article class="span12 news-specs">
                                                 <nav>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/01.png"/>
-                                                        <span class="news-specs-info">Category</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/02.png"/>
-                                                        <span class="news-specs-info">Admin</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/03.png"/>
-                                                        <span class="news-specs-info">22 Comments</span>
-                                                    </a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/04.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/04.png"/></a>
                                                 </nav>
                                             </article>
                                         </div>
@@ -316,25 +309,18 @@
                                                 <h5>June</h5>
                                                 <h4>2013</h4>
                                             </div>
-                                            <img alt="renova" title="renova" src="images/news/2.jpg"/>
+                                            <img src="images/news/2.jpg"/>
                                         </article>
                                     </div>
                                     <div>
                                         <div class="row-fluid">
                                             <article class="span12 news-specs">
                                                 <nav>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/01.png"/>
-                                                        <span class="news-specs-info">Category</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/02.png"/>
-                                                        <span class="news-specs-info">Admin</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/03.png"/>
-                                                        <span class="news-specs-info">22 Comments</span>
-                                                    </a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/04.png"/></a>
                                                 </nav>
                                             </article>
                                         </div>
@@ -352,21 +338,16 @@
                                 <article class="span4 news-block">
                                     <div class="row-fluid">
                                         <article class="span12 news-img">
-                                            <img alt="renova" title="renova" src="images/news/1.jpg"/>
+                                            <img src="images/news/1.jpg"/>
                                         </article>
                                     </div>
                                     <div>
                                         <div class="row-fluid">
                                             <article class="span12 news-specs">
                                                 <nav>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/01.png"/>
-                                                        <span class="news-specs-info">Category</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/03.png"/>
-                                                        <span class="news-specs-info">22 Comments</span>
-                                                    </a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
                                                 </nav>
                                             </article>
                                         </div>
@@ -382,21 +363,17 @@
                                 <article class="span4 news-block">
                                     <div class="row-fluid">
                                         <article class="span12 news-img">
-                                            <img alt="renova" title="renova" src="images/news/1.jpg"/>
+                                            <img src="images/news/1.jpg"/>
                                         </article>
                                     </div>
                                     <div>
                                         <div class="row-fluid">
                                             <article class="span12 news-specs">
                                                 <nav>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/01.png"/>
-                                                        <span class="news-specs-info">Category</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/03.png"/>
-                                                        <span class="news-specs-info">22 Comments</span>
-                                                    </a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
                                                 </nav>
                                             </article>
                                         </div>
@@ -412,21 +389,15 @@
                                 <article class="span4 news-block">
                                     <div class="row-fluid">
                                         <article class="span12 news-img">
-                                            <img alt="renova" title="renova" src="images/news/1.jpg"/>
+                                            <img src="images/news/1.jpg"/>
                                         </article>
                                     </div>
                                     <div>
                                         <div class="row-fluid">
                                             <article class="span12 news-specs">
                                                 <nav>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/01.png"/>
-                                                        <span class="news-specs-info">Category</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/03.png"/>
-                                                        <span class="news-specs-info">22 Comments</span>
-                                                    </a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    <a href="#"><img src="images/news/icons/05.png"/></a>
                                                 </nav>
                                             </article>
                                         </div>
@@ -438,6 +409,12 @@
                                             <a href="#" class="btn btn-renova-alt">Read More</a>
                                         </article>
                                     </div>
+                                </article>
+                            </div>
+                            <div class="row add-top-news add-bottom-main">
+                                <article class="span12">
+                                    <div class="thumb-icon"><a href="NewsPage.jsp" class="btn btn-renova-alt">More News</a></div>
+                                    </br></br></br>                                    
                                 </article>
                             </div>
                         </section><!--/ container-->        

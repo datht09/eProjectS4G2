@@ -28,7 +28,7 @@ $(document).ready(function($) {
             $("input#loginPass").focus();
             return false;
         }
-        
+
     });
 
 
@@ -98,7 +98,8 @@ $(document).ready(function($) {
         function isValidEmailAddress(emailAddress) {
             var pattern = new RegExp(/^(("[\w-+\s]+")|([\w-+]+(?:\.[\w-+]+)*)|("[\w-+\s]+")([\w-+]+(?:\.[\w-+]+)*))(@((?:[\w-+]+\.)*\w[\w-+]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][\d]\.|1[\d]{2}\.|[\d]{1,2}\.))((25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\.){2}(25[0-5]|2[0-4][\d]|1[\d]{2}|[\d]{1,2})\]?$)/i);
             return pattern.test(emailAddress);
-        };
+        }
+        ;
 
         //address
         var add = $("input#registerAddress").val();
@@ -115,7 +116,7 @@ $(document).ready(function($) {
             $("input#registerPhone").focus();
             return false;
         }
-        
+
         //phone (check if phone entered is not number)
         if (phone !== "") {  // If something was entered
             if (!isValidPhoneNumber(phone)) {
@@ -127,11 +128,47 @@ $(document).ready(function($) {
         function isValidPhoneNumber(phoneNumber) {
             var pattern = new RegExp("^[0-9]{10,11}");
             return pattern.test(phoneNumber);
-        };
-        
-        
+        }
+        ;
+
+
     });
 
+
+    // on new complaint form submit...
+    $("#complaintForm #submit").click(function() {
+        $(".error").hide();
+
+        //required:
+
+        //subject
+        var subject = $("input#subject").val();
+        if (subject == "") {
+            $('#cSubject').fadeIn('slow');
+            $("input#subject").focus();
+            return false;
+        }
+        
+        //error
+        var ddl = document.getElementById("error");
+        var selectedValue = ddl.options[ddl.selectedIndex].value;
+        if (selectedValue == "") {
+            $('#cError').fadeIn('slow');
+            $("input#error").focus();
+            return false;
+        }
+        
+        // message
+        var comments = $("#message").val();
+        if (comments == "") {
+            $('#cMessage').fadeIn('slow');
+            $("input#message").focus();
+            return false;
+        }
+
+        
+
+    });
 
 
     // on success...
