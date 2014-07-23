@@ -200,10 +200,17 @@ public class DBFunction {
     }
 
     //get Connection Host Online
+<<<<<<< HEAD
+    public Connection getConnection(){
+ 
+    Connection con=null;
+    
+=======
 
     private Connection getConnection() {
         Connection con = null;
 
+>>>>>>> 7ff09368969495790a436361782a6e8bb6393378
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String user = "sa";
