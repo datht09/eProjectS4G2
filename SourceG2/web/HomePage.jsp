@@ -80,6 +80,7 @@
             <c:redirect url="Login.jsp"/>
         </c:if>
         <c:set var="us" value="${mrBean.getAccDetails(user,1)}"/>
+        <c:set var="lstCategory" value="${mrBean.listCategory}"/>
 
         <!--MAIN WRAPPER--> 
         <div class="main-wrapper">
@@ -541,8 +542,17 @@
                                 </article>
                             </div>
                             <div class="row add-bottom-main">
-                                <form name="myform" id="contactForm" action="sendQuery" method="post">  
+                                <form name="myform" id="contactForm" action="sendQueryAction" method="post">
+                                    <div class="span6 offset3" style="margin-bottom: 35px">
+                                        <span style="text-transform: uppercase; font-family:Open_Sans_L">Please choose complaint category: </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <select style="width: 169px" name="category">
+                                            <c:forEach items="${lstCategory}" var="c">
+                                                <option value="${c.id}">${c.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
                                     <article class="span6 offset3">
+                                        <input type="hidden" name="username" value="${user}"/>
                                         <input size="100" type="text" name="subject" id="name" placeholder="Subject">
                                         <textarea  id="msg" rows="3" cols="40" name="content" placeholder="Message"></textarea>
                                         <button type="submit" name="submit" id="submit" class="btn btn-renova-alt add-top-half">Send Message</button>

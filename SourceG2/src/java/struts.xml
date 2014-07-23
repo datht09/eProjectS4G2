@@ -9,5 +9,8 @@
             <result>HomePage.jsp</result>
             <result name="FAILED">Login.jsp</result>
         </action>
+        <action name="sendQueryAction" class="MyAction.sendQueryAction">
+            <result>HomePage.jsp</result>
+        </action>
     </package>
 </struts>

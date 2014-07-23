@@ -53,12 +53,12 @@ public class loginAction extends ActionSupport implements SessionAware{
     
     @Override
     public String execute() throws Exception {
-        DBFunction function=new DBFunction();
-       if(function.checkLogin(user, pass,1)){
-          getSession().put("user",user);
-           addActionMessage("Login Success");
-           return SUCCESS;
-       }else{
+        DBFunction function = new DBFunction();
+        if (function.checkLogin(user, pass, 1)) {
+            getSession().put("user", user);
+            addActionMessage("Login Success");
+            return SUCCESS;
+        } else {
            if(getSession().containsKey("user")){
                getSession().remove("user");
            }
