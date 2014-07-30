@@ -2,6 +2,8 @@
 
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="newsBean" scope="session" class="DataAccess.DBFunctionNews"/>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,8 +30,13 @@
         <link href="stylesheets/jquery.tweet.css" rel="stylesheet"/>
         <link href="stylesheets/responsive-nav.css" rel="stylesheet">
         <link href="stylesheets/style.css" rel="stylesheet">
+        <link rel="stylesheet" id="blog-css" href="stylesheets/blog.css" type="text/css" media="all">
 
         <script src="javascripts/modernizr.custom.js"></script>
+
+        <script type="text/javascript" src="javascripts/jquery.js"></script>
+        <script type="text/javascript" src="javascripts/jquery-migrate.min.js"></script>
+        <script type="text/javascript" src="javascripts/modernizr.custom.js"></script>
 
         <link rel="shortcut icon" href="assets/ico/favicon.ico">
 
@@ -66,7 +73,10 @@
     </head>
 
     <body id="body">
-        
+        <c:if test="${user==null}">
+            <c:redirect url="Login.jsp"/>
+        </c:if>
+        <c:set var="news" value="${newsBean.getNewsByID(param.id)}"/>
         <!--MAIN WRAPPER--> 
         <div class="main-wrapper">
             <!-- Mobile Only Navigation - 2 types each for (480px to 640px) and (640px to 960px) wide device screens -->
@@ -74,8 +84,8 @@
                 <div id="nav">
                     <ul id="main-nav">
                         <!--<li><a class="scroll-link" href="#showcase" data-soffset="0">Showcase</a></li>-->
-                        <li><a class="scroll-link" href="#login" id="login-linker" data-soffset="0">Login</a></li>
-                        <li><a class="scroll-link" href="#register" id="register-linker" data-soffset="0">Register</a></li>
+                        <li><a class="scroll-link" href="#home" id="home-linker" data-soffset="0">Home</a></li>
+                        <li><a class="scroll-link" href="#news" id="news-linker" data-soffset="0">News</a></li>
                     </ul>
                 </div>
             </header>
@@ -92,139 +102,93 @@
             </section>
             
            
-            
-            
-            
-<!--/ LOGIN -->
-            <section id="login" class=" master-section">
-                <div class="row-fluid">
-                    <section class="container">
-                        <div class="row add-top-main">
-                            <article class="span12">
-                                <div class="thumb-icon"><img src="images/icons/01.png"/></div>
-                                <h1 class="main-heading"><span>Login</span></h1>
-                            </article>
-                        </div>
-
-                        <div class="row">
-                            <article class="span12 text-center">
-                                <div id="lName"  class="alert alert-error error add-top">
-                                    Name must not be empty
-                                </div>
-                                <div id="lPass" class="alert alert-error  error add-top">
-                                    Password must not be empty
-                                </div>
-                            </article>
-                        </div>
-
-                        <div class="row add-bottom-main">
-                            <form name="loginForm" id="loginForm" action="loginAction" enctype="multipart/form-data" method="post">
-                                <article class="span4 offset4">
-                                    <s:actionerror />
-                                    <input size="100" type="text" name="user" id="loginName" placeholder="username">
-                                   
-                                    <input type="password"  size="30" id="loginPass" name="pass" placeholder="password">
-                                    <button type="submit" name="submit" id="submit" class="btn btn-renova-alt add-top-half">Login</button>
-                                </article>
-                            </form>
-                        </div>
-                    </section>
-                </div><!--/ row-fluid-->   
-                <a class="scroll-link" href="#register" data-soffset="100"><div id="scroll"></div></a>
-            </section><!--/ container-->   
-
             <!-- Desktop Only NAVIGATION -->
             <div class="navigation hidden-phone hidden-tablet">
                 <ul id="main-nav">
                     <li>
-                        <a class="scroll-link" href="#login" id="about-linker" data-soffset="100">login</a>
+                        <a class="scroll-link" href="HomePage.jsp?index=1" id="home-linker" data-soffset="100">home</a>
                     </li>
                     <li class="logo-wrap">
                         <a class="scroll-link logo" href="#body" data-soffset="100"><img src="images/logo.png"/></a>
                     </li>
                     <li>
-                        <a class="scroll-link" href="#register" id="newsreel-linker" data-soffset="100">register</a>
+                        <a class="scroll-link" href="NewsPage.jsp?index=1#news" id="news-linker" data-soffset="100">news</a>
                     </li>
                 </ul>
             </div>
-<!--/ LOGIN END -->
+            
+            
+            <section id="news" class=" master-section">
+
+                <div id="promo1" class="single_post_bg">
+                    <div id="post-181" class="page-single">
+
+                        <div class="container-fluid pad-bottom-main full-bg">
+                            <div class="row-fluid">
+                                <div class="container">            
+                                    <div class="row add-top add-bottom">
+                                        <article class="span9 blog-block">
+
+
+                                            <section class="add-bottom">
+                                                <h2 class="blog-caps">
+                                                    <a href="">${news.title}</a>
+                                                </h2>
+<!--                                                <div class="postformat"><img src="images/regular.png" alt="post" title="Format"></div>-->
+                                                <div class="blog-stats">
+                                                    By <span class="stat_hl">${news.username}</span> on <span class="stat_hl">
+                                                        ${news.cDate}</span>
+
+                                                </div>                  
+
+                                                <div class="blog-thumb-single">
+                                                    <img width="600" height="400" src="images/news/${news.thumbnail}" class=" wp-post-image" alt="2"></div>
+
+                                                <div class="blog-para">
+                                                    <p>
+                                                        ${news.summary}
+                                                    </p>
+                                                    <p>
+                                                        ${news.content}
+                                                    </p>
+                                                    
+                                                </div>
+                                                
+                                            </section>
+
+                                        </article><!-- left-side : ends-->
+                                        <article class="span3 blog-side-panel side-panel">
+                                            		<section id="recent-posts-2" class="blog-side-panel widget_recent_entries">		
+                                                            <h2>Recent Posts</h2>		
+                                                            <ul>
+                                                    <c:forEach begin="0" end="3" var="n" items="${newsBean.getNews('Top5','')}">
+                                                            <li>
+                                                                <a href="NewsDetail.jsp?id=${n.id}">${n.title}</a>
+                                                            </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </section>
+                                            <section id="archives-2" class="blog-side-panel widget_archive"><h2>Archives</h2>		<ul>
+                                                    <li><a href="NewsPage.jsp?type=Date&content=2014.07">July 2014</a></li>
+                                                    <li><a href="NewsPage.jsp?type=Date&content=2014.06">June 2014</a></li>
+                                                </ul>
+                                            </section>
+                                                   </article> 
+                                    </div><!-- row : ends -->
 
 
 
-
-<!--/ REGISTER -->
-            <section id="register" class="master-section">
-                <section class="container-fluid inner mob-bg-remove">
-                    <div class="row-fluid">
-                        <section class="container">
-                            <div class="row add-top-main">
-                                <article class="span12">
-                                    <div class="thumb-icon"><img src="images/icons/01.png"/></div>
-                                    <h1 class="main-heading"><span>Register</span></h1>
-                                    <!--<h3 class="promo-text"><span>Lorem ipsum dolor sit amet, consectetur..</span></h3>-->
-                                </article>
+                                </div> 
                             </div>
+                        </div>  
 
-                            <div class="row">
-                                <article class="span12 text-center">
-                                    <div id="rUserName"  class="alert alert-error error add-top">
-                                        Username must not be empty
-                                    </div>
-                                    <div id="rPass"  class="alert alert-error error add-top">
-                                        Password must not be empty
-                                    </div>
-                                    <div id="rConfirmPass"  class="alert alert-error error add-top">
-                                        Password does not match the confirm password
-                                    </div>
-                                    <div id="rDepartment"  class="alert alert-error error add-top">
-                                        Please select your department
-                                    </div>
-                                    <div id="rFullName"  class="alert alert-error error add-top">
-                                        Full name must not be empty
-                                    </div>
-                                    <div id="rEmail" class="alert alert-error  error add-top">
-                                        Please provide a valid email
-                                    </div>
-                                    <div id="rAddress"  class="alert alert-error error add-top">
-                                        Address must not be empty
-                                    </div>
-                                    <div id="rPhone"  class="alert alert-error error add-top">
-                                        Phone number is not valid
-                                    </div>
-                                </article>
-                            </div>
+                    </div> 
+                </div>  
 
-                            <div class="row add-bottom-main">
-                                <form name="registerForm" id="registerForm" action="sendQueryAction" enctype="multipart/form-data" method="post">
-                                    <article class="span4 offset4">
-                                        <input size="100" type="text" name="username" id="registerUsername" placeholder="username">
-                                        <input size="100" type="text" name="password" id="registerPass" placeholder="password">
-                                        <input size="100" type="text" name="cPassword" id="registerConfirmPass" placeholder="confirm password">
-                                        <select id="registerDepartment" name="department">
-                                            <option value="">--- Select Department ---</option> 
-                                            <option value="educational">Educational Services</option>
-                                            <option value="management">Management Services</option>
-                                            <option value="learning">Learning Services</option>
-                                            <option value="internal">Internal Systems</option>
-                                            <option value="human">Human Resources</option>
-                                         </select>
-                                        <input size="100" type="text" name="fullName" id="registerFullName" placeholder="full name">
-                                        <input type="text"  size="100" id="registerEmail" name="email" placeholder="email">
-                                        <input size="100" type="text" name="address" id="registerAddress" placeholder="address">
-                                        <input size="100" type="text" name="phone" id="registerPhone" placeholder="phone number">
-                                        <!--<form action="UploadServlet" method="post" enctype="multipart/form-data">-->
-                                        <input type="file" name="file" size="100" />
-                                        <!--</form>-->
-                                        <button type="submit" name="submit" id="submit" class="btn btn-renova-alt add-top-half">Register</button>
-                                    </article>
-                                </form>
-                            </div>
-                        </section><!--/ container-->        
-                    </div><!--/ row-fluid-->   
-                </section><!--/ container-->       
-            </section><!--/ page-->
-<!--/ REGISTER END -->
-
+            </section>
+            
+          
+            
 
 
 
@@ -339,7 +303,7 @@
             });
         </script>
 
-        <!-- Full Screen Background Images are defined via JS here: -->
+        <!-- Full Screen Background images are defined via JS here: -->
         <script>
             $.backstretch([
                 "images/bg1.jpg",

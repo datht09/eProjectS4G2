@@ -3,6 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="mrBean" scope="session" class="DataAccess.DBFunction"/>
+<jsp:useBean id="newsBean" scope="session" class="DataAccess.DBFunctionNews"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +32,8 @@
         <link href="stylesheets/responsive-nav.css" rel="stylesheet">
         <link href="stylesheets/style.css" rel="stylesheet">
 
+        <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/smartadmin-production.min.css">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
         <script src="javascripts/modernizr.custom.js"></script>
 
         <!--[if lt IE 9]>
@@ -73,7 +76,7 @@
 
     </head>
 
-    <body id="body">
+    <body id="body" style="background-color: #C1C5C8">
 
         <c:set var="user" value="${sessionScope.user}"/>
         <c:if test="${user==null}">
@@ -81,6 +84,8 @@
         </c:if>
         <c:set var="us" value="${mrBean.getAccDetails(user,1)}"/>
         <c:set var="lstCategory" value="${mrBean.listCategory}"/>
+        <c:set var="lstQuery" value="${mrBean.getListQuery(user, param['index'])}"/>
+
 
         <!--MAIN WRAPPER--> 
         <div class="main-wrapper">
@@ -89,8 +94,8 @@
                 <div id="nav">
                     <ul>
                         <li><a class="scroll-link" href="#profile" data-soffset="0">My Profile</a></li>
-                        <li><a class="scroll-link" href="#news" data-soffset="0">News</a></li>
-                        <li><a class="scroll-link" href="#report" data-soffset="0">Report</a></li>
+                        <li><a class="scroll-link" href="#news" data-soffset="0">Article</a></li>
+                        <li><a class="scroll-link" href="#report" data-soffset="0">My complaints</a></li>
                         <li><a class="scroll-link" href="#complaint" data-soffset="0">Complaint</a></li>
                         <li><a class="scroll-link" href="#faq" data-soffset="0">FAQ</a></li>
                     </ul>
@@ -118,7 +123,7 @@
                             <a class="scroll-link" href="#news" data-soffset="100">
                                 <span class="ca-icon"><img title="renova" src="images/icons/06.png"/></span>
                                 <div class="ca-content">
-                                    <h2 class="ca-main">News</h2>
+                                    <h2 class="ca-main">Article</h2>
                                     <h3 class="ca-sub">You may not know</h3>
                                 </div>
                             </a>
@@ -127,8 +132,8 @@
                             <a class="scroll-link" href="#report" data-soffset="100">
                                 <span class="ca-icon"><img title="renova" src="images/icons/04.png"/></span>
                                 <div class="ca-content">
-                                    <h2 class="ca-main">Report</h2>
-                                    <h3 class="ca-sub">Report log</h3>
+                                    <h2 class="ca-main">My Complaints</h2>
+                                    <h3 class="ca-sub">History log</h3>
                                 </div>
                             </a>
                         </li>
@@ -165,13 +170,13 @@
                         <a class="scroll-link" href="#profile" id="profile-linker" data-soffset="100">profile</a>
                     </li>
                     <li>
-                        <a class="scroll-link" href="#news" id="newsreel-linker" data-soffset="100">news</a>
+                        <a class="scroll-link" href="#news" id="newsreel-linker" data-soffset="100">article</a>
                     </li>
                     <li class="logo-wrap">
                         <a class="scroll-link logo" href="#body" data-soffset="100"><img alt="renova" title="renova" src="images/logo.png"/></a>
                     </li>
                     <li>
-                        <a class="scroll-link" href="#report" id="report-linker" data-soffset="100">report</a>
+                        <a class="scroll-link" href="#report" id="report-linker" data-soffset="100">history</a>
                     </li>
                     <li>
                         <a class="scroll-link" href="#complaint" id="complaint-linker" data-soffset="100">complaint</a>
@@ -221,8 +226,8 @@
                                 <article class="span6 offset3 testimonial-block">
                                     <div class="row-fluid">
 
-                                        <article class="span6 offset3">
-                                            <img alt="renova" title="renova" src="${us.imageurl}"/>
+                                        <article style="margin-top: 20px" class="span6 offset3">
+                                            <img  alt="renova" title="renova" src="${us.imageurl}"/>
                                         </article>
                                         <article class="span10 remove-left testimonial-content text-left" style="padding-left: 80px ; width: auto;">
 
@@ -263,181 +268,85 @@
                         <section class="container">
                             <div class="row add-top-main">
                                 <article class="span12">
-                                    <div class="thumb-icon"><img alt="renova" title="renova" src="images/icons/06.png"/></div>
-                                    <h1 class="main-heading"><span>News</span></h1>
+                                    <div class="thumb-icon"><img src="images/icons/06.png"/></div>
+                                    <h1 class="main-heading"><span><a href="NewsPage.jsp?type=all&content=">Articles</a></span></h1>
                                     <h3 class="promo-text"><span>You may not know</span></h3>
                                 </article>
                             </div>
+
                             <div class="row">
-                                <article class="span6 news-block">
-                                    <div class="row-fluid">
-                                        <article class="span12 news-img">
-                                            <div class="news-date">
-                                                <h2>21</h2>
-                                                <h5>June</h5>
-                                                <h4>2013</h4>
-                                            </div>
-                                            <img alt="renova" title="renova" src="images/news/1.jpg"/>
-                                        </article>
-                                    </div>
-                                    <div>
+                                <c:forEach begin="0" end="1" var="n" items="${newsBean.getNews('Top5','')}">
+                                    <article class="span6 news-block">
                                         <div class="row-fluid">
-                                            <article class="span12 news-specs">
-                                                <nav>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/01.png"/>
-                                                        <span class="news-specs-info">Category</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/02.png"/>
-                                                        <span class="news-specs-info">Admin</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/03.png"/>
-                                                        <span class="news-specs-info">22 Comments</span>
-                                                    </a>
-                                                </nav>
+                                            <article class="span12 news-img">
+                                                <div class="news-date">
+                                                    <h2>${n.cDate.date}</h2>
+                                                    <h5>${n.cDate.month}</h5>
+                                                    <h4>${n.cDate.year}</h4>
+                                                </div>
+                                                <img src="images/news/${n.thumbnail}" style="width: 518px; height: 345px"/>
                                             </article>
                                         </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <article class="span12 news-block-content">
-                                            <h3 class="news-heading"><span>News Title Here..</span></h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur.. Sed id lorem eget orci dictum facilisis vel id tellus. Nullam iaculis arcu at mauris dapibus consectetur.</p>
-                                            <a href="#" class="btn btn-renova-alt">Read More</a>
-                                        </article>
-                                    </div>
-                                </article>
-                                <article class="span6 news-block">
-                                    <div class="row-fluid">
-                                        <article class="span12 news-img">
-                                            <div class="news-date">
-                                                <h2>21</h2>
-                                                <h5>June</h5>
-                                                <h4>2013</h4>
+                                        <div>
+                                            <div class="row-fluid">
+                                                <article class="span12 news-specs">
+                                                    <nav>
+                                                        <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                        <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                        <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                        <a href="#"><img src="images/news/icons/04.png"/></a>
+                                                        <a href="#"><img src="images/news/icons/04.png"/></a>
+                                                    </nav>
+                                                </article>
                                             </div>
-                                            <img alt="renova" title="renova" src="images/news/2.jpg"/>
-                                        </article>
-                                    </div>
-                                    <div>
+                                        </div>
                                         <div class="row-fluid">
-                                            <article class="span12 news-specs">
-                                                <nav>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/01.png"/>
-                                                        <span class="news-specs-info">Category</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/02.png"/>
-                                                        <span class="news-specs-info">Admin</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/03.png"/>
-                                                        <span class="news-specs-info">22 Comments</span>
-                                                    </a>
-                                                </nav>
+                                            <article class="span12 news-block-content">
+                                                <h3 class="news-heading"><span>${n.title}</span></h3>
+                                                <p>${n.summary}</p>
+                                                <a href="NewsDetail.jsp?id=${n.id}" class="btn btn-renova-alt">Read More</a>
                                             </article>
                                         </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <article class="span12 news-block-content">
-                                            <h3 class="news-heading"><span>News Title Here..</span></h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur.. Sed id lorem eget orci dictum facilisis vel id tellus. Nullam iaculis arcu at mauris dapibus consectetur.</p>
-                                            <a href="#" class="btn btn-renova-alt">Read More</a>
-                                        </article>
-                                    </div>
-                                </article>
+                                    </article>
+                                    <%--</s:if>--%>
+                                </c:forEach>
                             </div>
+
                             <div class="row add-top-news add-bottom-main">
-                                <article class="span4 news-block">
-                                    <div class="row-fluid">
-                                        <article class="span12 news-img">
-                                            <img alt="renova" title="renova" src="images/news/1.jpg"/>
-                                        </article>
-                                    </div>
-                                    <div>
+                                <c:forEach begin="2" end="5" var="n" items="${newsBean.newsTop5}">
+                                    <article class="span4 news-block">
                                         <div class="row-fluid">
-                                            <article class="span12 news-specs">
-                                                <nav>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/01.png"/>
-                                                        <span class="news-specs-info">Category</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/03.png"/>
-                                                        <span class="news-specs-info">22 Comments</span>
-                                                    </a>
-                                                </nav>
+                                            <article class="span12 news-img">
+                                                <img style="width: 336px;height: 224px" src="images/news/${n.thumbnail}"/>
                                             </article>
                                         </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <article class="span12 news-block-content">
-                                            <h3 class="news-heading"><span>News Title Here..</span></h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur.. Sed id lorem eget orci dictum facilisis vel id tellus. Nullam iaculis arcu at mauris dapibus consectetur.</p>
-                                            <a href="#" class="btn btn-renova-alt">Read More</a>
-                                        </article>
-                                    </div>
-                                </article>
-                                <article class="span4 news-block">
-                                    <div class="row-fluid">
-                                        <article class="span12 news-img">
-                                            <img alt="renova" title="renova" src="images/news/1.jpg"/>
-                                        </article>
-                                    </div>
-                                    <div>
+                                        <div>
+                                            <div class="row-fluid">
+                                                <article class="span12 news-specs">
+                                                    <nav>
+                                                        <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                        <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                        <a href="#"><img src="images/news/icons/05.png"/></a>
+                                                    </nav>
+                                                </article>
+                                            </div>
+                                        </div>
                                         <div class="row-fluid">
-                                            <article class="span12 news-specs">
-                                                <nav>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/01.png"/>
-                                                        <span class="news-specs-info">Category</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/03.png"/>
-                                                        <span class="news-specs-info">22 Comments</span>
-                                                    </a>
-                                                </nav>
+                                            <article class="span12 news-block-content">
+                                                <h3 class="news-heading"><span>${n.title}</span></h3>
+                                                <p>${n.summary}</p>
+                                                <a href="NewsDetail.jsp?id=${n.id}" class="btn btn-renova-alt">Read More</a>
                                             </article>
                                         </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <article class="span12 news-block-content">
-                                            <h3 class="news-heading"><span>News Title Here..</span></h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur.. Sed id lorem eget orci dictum facilisis vel id tellus. Nullam iaculis arcu at mauris dapibus consectetur.</p>
-                                            <a href="#" class="btn btn-renova-alt">Read More</a>
-                                        </article>
-                                    </div>
-                                </article>
-                                <article class="span4 news-block">
-                                    <div class="row-fluid">
-                                        <article class="span12 news-img">
-                                            <img alt="renova" title="renova" src="images/news/1.jpg"/>
-                                        </article>
-                                    </div>
-                                    <div>
-                                        <div class="row-fluid">
-                                            <article class="span12 news-specs">
-                                                <nav>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/01.png"/>
-                                                        <span class="news-specs-info">Category</span>
-                                                    </a>
-                                                    <a href="#">
-                                                        <img alt="renova" title="renova" src="images/news/icons/03.png"/>
-                                                        <span class="news-specs-info">22 Comments</span>
-                                                    </a>
-                                                </nav>
-                                            </article>
-                                        </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <article class="span12 news-block-content">
-                                            <h3 class="news-heading"><span>News Title Here..</span></h3>
-                                            <p>Lorem ipsum dolor sit amet, consectetur.. Sed id lorem eget orci dictum facilisis vel id tellus. Nullam iaculis arcu at mauris dapibus consectetur.</p>
-                                            <a href="#" class="btn btn-renova-alt">Read More</a>
-                                        </article>
-                                    </div>
+                                    </article>
+                                </c:forEach>
+
+                            </div>
+
+                            <div class="row add-top-news add-bottom-main">
+                                <article class="span12">
+                                    <div class="thumb-icon"><a href="NewsPage.jsp" class="btn btn-renova-alt">More News</a></div>
+                                    </br></br></br>                                    
                                 </article>
                             </div>
                         </section><!--/ container-->        
@@ -445,10 +354,6 @@
                 </section><!--/ container-->
             </section><!--/ page-->
             <!--/ NEWS END -->
-
-
-
-
 
             <!--/ REPORT -->
             <section id="report" class="bg-dark master-section">
@@ -458,47 +363,45 @@
                             <div class="row add-top-main">
                                 <article class="span12">
                                     <div class="thumb-icon"><img alt="renova" title="renova" src="images/icons/04-in.png"/></div>
-                                    <h1 class="main-heading"><span>Report</span></h1>
-                                    <h3 class="promo-text-alt darken"><span>Report log</span></h3>
+                                    <h1 class="main-heading"><span>My complaints</span></h1>
+                                    <h3 class="promo-text-alt darken"><span>History log</span></h3>
                                 </article>
                             </div>
                             <div class="row">
                                 <article class="span12">
                                     <section id="options" class="clearfix">
-                                        <table style="border: solid; border-color: white">
-                                            <tr>
-                                                <td class="inner-link textReport">demo</td>
-                                                <td class="inner-link textReport">demo</td>
-                                                <td class="inner-link textReport">demo</td>
-                                                <td class="inner-link textReport">demo</td>
-                                                <td class="inner-link textReport">demo</td>
-                                                <td class="inner-link textReport">demo</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="inner-link textReport2">demo 1</td>
-                                                <td class="inner-link textReport2">demo 1</td>
-                                                <td class="inner-link textReport2">demo 1</td>
-                                                <td class="inner-link textReport2">demo 1</td>
-                                                <td class="inner-link textReport2">demo 1</td>
-                                                <td class="inner-link textReport2">demo 1</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="inner-link textReport2">demo 2</td>
-                                                <td class="inner-link textReport2">demo 2</td>
-                                                <td class="inner-link textReport2">demo 2</td>
-                                                <td class="inner-link textReport2">demo 2</td>
-                                                <td class="inner-link textReport2">demo 2</td>
-                                                <td class="inner-link textReport2">demo 2</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="inner-link textReport2">demo 3</td>
-                                                <td class="inner-link textReport2">demo 3</td>
-                                                <td class="inner-link textReport2">demo 3</td>
-                                                <td class="inner-link textReport2">demo 3</td>
-                                                <td class="inner-link textReport2">demo 3</td>
-                                                <td class="inner-link textReport2">demo 3</td>
-                                            </tr>
-                                        </table>
+                                        <c:forEach items="${lstQuery}" var="query">
+                                            <div class="timeline-seperator text-center"> <span>${query.dateOfLodging}</span>
+
+                                            </div>
+                                            <div class="chat-body no-padding profile-message">
+                                                <ul>
+                                                    <li class="message">
+                                                        <img style="height: 50px; width: 55px" src="${us.imageurl}" alt="user">
+                                                        <span class="message-text"> <a href="#profile" class="username">${user} </a> ${query.content}</span>
+
+                                                    </li>
+                                                    <br/>
+                                                    <p>
+                                                        <a href="ComplaintDetail.jsp?id=${query.id}" style="margin-left: 20px" class="text-info showReply">View Reply(${mrBean.getListReply(query.id).size()}) </a>
+                                                    </p>
+
+
+                                                </ul>
+                                            </div>
+                                        </c:forEach>
+                                        <div class="text-center"> 
+                                            <select onchange="window.location = this.options[this.selectedIndex].value">
+                                                <option value="">Go to page...</option>
+                                                <c:set value="${mrBean.countQueryByUser(user)}" var="countQuery" />
+                                                <c:set value="${mrBean.countPage(countQuery)}" var="countPage" />
+                                                <c:forEach begin="1" end="${countPage}" var="i">
+                                                    <option value="HomePage.jsp?index=${i}#report">Page ${i}</option>
+                                                </c:forEach>
+
+                                            </select>/
+                                            <span>${countPage}</span> 
+                                        </div>
                                     </section> <!-- #options -->
                                 </article><!-- span12 : ends -->
                             </div><!-- row : ends -->
@@ -696,21 +599,21 @@
         <script src="javascripts/script.js" type="text/javascript"></script> 
 
         <script>
-            var navigation = responsiveNav("#nav", {// Selector: The ID of the wrapper
-                animate: true, // Boolean: Use CSS3 transitions, true or false
-                transition: 400, // Integer: Speed of the transition, in milliseconds
-                label: "Menu", // String: Label for the navigation toggle
-                insert: "after", // String: Insert the toggle before or after the navigation
-                customToggle: "", // Selector: Specify the ID of a custom toggle
-                openPos: "relative", // String: Position of the opened nav, relative or static
-                jsClass: "js", // String: 'JS enabled' class which is added to <html> el
-                init: function() {
-                }, // Function: Init callback
-                open: function() {
-                }, // Function: Open callback
-                close: function() {
-                } // Function: Close callback
-            });
+                                                var navigation = responsiveNav("#nav", {// Selector: The ID of the wrapper
+                                                    animate: true, // Boolean: Use CSS3 transitions, true or false
+                                                    transition: 400, // Integer: Speed of the transition, in milliseconds
+                                                    label: "Menu", // String: Label for the navigation toggle
+                                                    insert: "after", // String: Insert the toggle before or after the navigation
+                                                    customToggle: "", // Selector: Specify the ID of a custom toggle
+                                                    openPos: "relative", // String: Position of the opened nav, relative or static
+                                                    jsClass: "js", // String: 'JS enabled' class which is added to <html> el
+                                                    init: function() {
+                                                    }, // Function: Init callback
+                                                    open: function() {
+                                                    }, // Function: Open callback
+                                                    close: function() {
+                                                    } // Function: Close callback
+                                                });
         </script>
 
 

@@ -6,7 +6,9 @@
 package DataAccess;
 
 import Entity.Account;
+import Entity.Query;
 import Entity.QueryCategory;
+import Entity.Reply;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,7 +36,9 @@ public class DBFunction {
 
     ArrayList<String> arr = new ArrayList<>();
 
-    
+    public DBFunction() {
+    }
+
     //getDepartment Name
     private String getDepartmentName(String id) {
 
@@ -166,6 +170,27 @@ public class DBFunction {
         return result > 0;
     }
 
+    //insert reply
+    public boolean insertReply(int queryid, String username, String content) {
+        int result = 0;
+        try {
+
+            Connection conn = getConnection();
+            String sql = "insert into tbl_Reply(_queryID, _username, _content) values(?,?,?)";
+            PreparedStatement prst = conn.prepareStatement(sql);
+            prst.setInt(1, queryid);
+            prst.setString(2, username);
+            prst.setString(3, content);
+            result = prst.executeUpdate();
+            prst.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result > 0;
+    }
+
     //login
     public Boolean checkLogin(String username, String password, int role) {
         Boolean result = false;
@@ -187,10 +212,9 @@ public class DBFunction {
     }
 
     //get Connection Host Online
+    public Connection getConnection() {
 
-    private Connection getConnection() {
         Connection con = null;
-
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String user = "sa";
@@ -203,6 +227,142 @@ public class DBFunction {
             Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
         }
         return con;
+    }
+
+    public List<Query> getListQuery(String username, int index) {
+        String sql = "SELECT *  FROM\n"
+                + "  (SELECT  ROW_NUMBER() OVER (ORDER BY _id DESC) as MyRowNumber,*\n"
+                + "  FROM tbl_Query WHERE _username=?) tbl_Query\n"
+                + "WHERE MyRowNumber BETWEEN ( ((? - 1) * ? )+ 1) AND ?*?";
+        int pagesize = 3;
+        List<Query> lst = new ArrayList<>();
+        try {
+
+            PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            preparedStatement.setInt(2, index);
+            preparedStatement.setInt(3, pagesize);
+            preparedStatement.setInt(4, index);
+            preparedStatement.setInt(5, pagesize);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Query query = new Query();
+                query.setId(rs.getInt("_id"));
+                query.setCategory(rs.getString("_category"));
+                query.setUsername(rs.getString("_username"));
+                query.setDepartmentID(rs.getString("_departmentID"));
+                query.setSubject(rs.getString("_subject"));
+                query.setContent(rs.getString("_content"));
+                query.setDateOfLodging(rs.getString("_dateoflodging"));
+                query.setDateOfClosing(rs.getString("_dateofclosing"));
+                query.setStatus(rs.getInt("_status"));
+                lst.add(query);
+            }
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return lst;
+
+    }
+
+    public int countQueryByUser(String username) {
+        String sql = "select * from tbl_Query where _username =?";
+        List<Query> lst = new ArrayList<>();
+        try {
+
+            PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Query query = new Query();
+                query.setId(rs.getInt("_id"));
+                query.setCategory(rs.getString("_category"));
+                query.setUsername(rs.getString("_username"));
+                query.setDepartmentID(rs.getString("_departmentID"));
+                query.setSubject(rs.getString("_subject"));
+                query.setContent(rs.getString("_content"));
+                query.setDateOfLodging(rs.getString("_dateoflodging"));
+                query.setDateOfClosing(rs.getString("_dateofclosing"));
+                query.setStatus(rs.getInt("_status"));
+                lst.add(query);
+            }
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return lst.size();
+    }
+
+    public int countPage(int i) {
+        int count;
+        if (i % 3 == 0) {
+            count = i / 3;
+        } else {
+            count = (i / 3) + 1;
+        }
+        return count;
+    }
+    
+    public Query getQueryById(int id) {
+        String sql = "SELECT *  FROM tbl_Query WHERE _id=?";
+        Query query = new Query();
+        try {
+
+            PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                query.setId(rs.getInt("_id"));
+                query.setCategory(rs.getString("_category"));
+                query.setUsername(rs.getString("_username"));
+                query.setDepartmentID(rs.getString("_departmentID"));
+                query.setSubject(rs.getString("_subject"));
+                query.setContent(rs.getString("_content"));
+                query.setDateOfLodging(rs.getString("_dateoflodging"));
+                query.setDateOfClosing(rs.getString("_dateofclosing"));
+                query.setStatus(rs.getInt("_status"));
+            }
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return query;
+
+    }
+
+
+    public List<Reply> getListReply(int queryid) {
+        String sql = "select * from tbl_Reply where _queryID =?";
+        List<Reply> lst = new ArrayList<>();
+        try {
+
+            PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, queryid);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Reply reply = new Reply();
+                reply.setId(rs.getInt("_id"));
+                reply.setQueryid(rs.getInt("_queryID"));
+                reply.setUsername(rs.getString("_username"));
+                reply.setContent(rs.getString("_content"));
+                reply.setDate(rs.getString("_date"));
+                lst.add(reply);
+            }
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return lst;
+
     }
 
 }
