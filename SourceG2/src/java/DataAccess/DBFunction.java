@@ -34,20 +34,7 @@ public class DBFunction {
 
     ArrayList<String> arr = new ArrayList<>();
 
-    public DBFunction() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("Conf\\database.ini"));
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                arr.add(line);
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+    
     //getDepartment Name
     private String getDepartmentName(String id) {
 
@@ -200,17 +187,10 @@ public class DBFunction {
     }
 
     //get Connection Host Online
-<<<<<<< HEAD
-    public Connection getConnection(){
- 
-    Connection con=null;
-    
-=======
 
     private Connection getConnection() {
         Connection con = null;
 
->>>>>>> 7ff09368969495790a436361782a6e8bb6393378
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String user = "sa";

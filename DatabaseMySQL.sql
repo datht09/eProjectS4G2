@@ -1,5 +1,9 @@
 
 go
+use master;
+drop database FIS;
+go
+go
 create database FIS;
 go
 go
@@ -84,7 +88,7 @@ create table tbl_Article
 _id integer identity primary key,
 _title nvarchar(100) not null,
 _content text,
-_summary nvarchar(250),
+_summary text,
 _thumbnail varchar(250),
 _username varchar(20) not null,
 _dateofpost datetime default GETDATE(),
