@@ -488,6 +488,9 @@ padding-bottom: 10px;
 	background: #FFC000;
 }
 
+.showReply{
+    
+}
 
 .folio-image-box {
 float: left;
@@ -1046,6 +1049,11 @@ input:focus, textarea:focus
 {
     color:#fff !important;
     background: #111 !important;
+}
+
+
+.reply-content{
+    
 }
 
 textarea

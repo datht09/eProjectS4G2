@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="newsBean" scope="session" class="DataAccess.DBFunctionNews"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +64,7 @@
                 right: 0px !important
             }
             #cboxClose:hover{
-                background: #777 url(Images/close.png) no-repeat center center
+                background: #777 url(images/close.png) no-repeat center center
             }
             #cboxContent{
                 padding-top: 37px !important;
@@ -71,7 +73,7 @@
     </head>
 
     <body id="body">
-
+        <c:set var="news" value="${newsBean.getNewsByID(param.id)}"/>
         <!--MAIN WRAPPER--> 
         <div class="main-wrapper">
             <!-- Mobile Only Navigation - 2 types each for (480px to 640px) and (640px to 960px) wide device screens -->
@@ -86,7 +88,7 @@
             </header>
 
             <div id="badge">
-                <img src="Images/badge.png"/>
+                <img src="images/badge.png"/>
             </div>
             <!-- SHOWCASE BLOCK -->
             <section id="showcase" class="clearfix master-section">	
@@ -101,13 +103,13 @@
             <div class="navigation hidden-phone hidden-tablet">
                 <ul id="main-nav">
                     <li>
-                        <a class="scroll-link" href="HomePage.jsp" id="home-linker" data-soffset="100">home</a>
+                        <a class="scroll-link" href="HomePage.jsp?index=1" id="home-linker" data-soffset="100">home</a>
                     </li>
                     <li class="logo-wrap">
-                        <a class="scroll-link logo" href="#body" data-soffset="100"><img src="Images/logo.png"/></a>
+                        <a class="scroll-link logo" href="#body" data-soffset="100"><img src="images/logo.png"/></a>
                     </li>
                     <li>
-                        <a class="scroll-link" href="NewsPage.jsp" id="news-linker" data-soffset="100">news</a>
+                        <a class="scroll-link" href="NewsPage.jsp?index=1#news" id="news-linker" data-soffset="100">news</a>
                     </li>
                 </ul>
             </div>
@@ -127,24 +129,24 @@
 
                                             <section class="add-bottom">
                                                 <h2 class="blog-caps">
-                                                    <a href="">Wing Up takes inspiration from Nintendo and Flappy Bird to make another addictive game from Vietnam</a>
+                                                    <a href="">${news.title}</a>
                                                 </h2>
-<!--                                                <div class="postformat"><img src="Images/regular.png" alt="post" title="Format"></div>-->
+<!--                                                <div class="postformat"><img src="images/regular.png" alt="post" title="Format"></div>-->
                                                 <div class="blog-stats">
-                                                    By <span class="stat_hl">designovawp</span> on <span class="stat_hl">
-                                                        July 5th</span>
+                                                    By <span class="stat_hl">${news.username}</span> on <span class="stat_hl">
+                                                        ${news.cDate}</span>
 
                                                 </div>                  
 
                                                 <div class="blog-thumb-single">
-                                                    <img width="600" height="400" src="Images/news/3.jpg" class=" wp-post-image" alt="2"></div>
+                                                    <img width="600" height="400" src="images/news/${news.thumbnail}" class=" wp-post-image" alt="2"></div>
 
                                                 <div class="blog-para">
                                                     <p>
-                                                        There’s been hundreds of Flappy Bird clones out there ever since the simple game topped the charts across the world. Although there’s been some innovation on the original concept from Dong Nguyen’s dotGEARS with games like Mr. Flap or Freaking Math, most games have stuck to the original “creature goes through pipes” gameplay. And after the craze of 2048, some devs have even attempted to combine the two smash hits. 
+                                                        ${news.summary}
                                                     </p>
                                                     <p>
-                                                        But new games are still coming out of Vietnam. Games like School Cheater, 1Path, Chien Binh, Sky Garden, and more indicate that Vietnam has a vibrant gaming community. Vietnam’s capital Hanoi is home to Dong Nguyen, and it’s where many strong Vietnamese mobile gaming studios take up residence. Only a few degrees of separation exist between some of the founders of these games and the Flappy Bird creator. And now we come to Wing Up, an iOS and Android game that takes inspiration from Flappy Bird and Nintendo. Wing Up hails from an unknown developer named Tung Hoang, based out of Hanoi. The core principles behind Flappy Bird that made their way into Wing Up Wing Up basically uses the same key principles of mobile gaming that Flappy Bird employs. Many of the more simple one-off mobile games we see today follow in these footsteps, so it’s worth noting them here briefly: Simple game play that just requires one tap for action: This, unlike other more complex games like Horn, Oceanhorn, Bastion, etc. make the barrier to entry for new gamers very low. One level: This makes it so that the game is boiled down to the most basic action, can you do it or not? It also makes it easy to pass your mobile to someone else so they can play it too. Very easy to replay: One of the key things dotGEARS did was make it so easy to restart Flappy Bird. Although it was frustrating when the bird died, restarting was instant. This also made it easy to spend hours on a game that took less than a minute to play. Simplified retro graphics: Flappy Bird is certainly not a pioneer of retro games on mobile. Long before Flappy Bird hit the scene, many mobile games used old-school graphics. This is a motif that all the clones and admirers have taken on. Mobile ads: Especially for Vietnamese developers, one of the biggest lessons from the success of Flappy Bird is that there is some serious money to be made on mobile ads. After all, Dong Nguyen was reporting making over $50,000 a day from Flappy Bird. Each of these principles can be found on Wing Up, which put its own spin on a bird flying through space.
+                                                        ${news.content}
                                                     </p>
                                                     
                                                 </div>
@@ -153,24 +155,19 @@
 
                                         </article><!-- left-side : ends-->
                                         <article class="span3 blog-side-panel side-panel">
-                                            		<section id="recent-posts-2" class="blog-side-panel widget_recent_entries">		<h2>Recent Posts</h2>		<ul>
-                                                    <li>
-                                                        <a href="http://designova.net/themes/wordpress/renova/?p=242">Quote Post</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="http://designova.net/themes/wordpress/renova/?p=181">Hello World</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="http://designova.net/themes/wordpress/renova/?p=168">Sample Audio Post</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="http://designova.net/themes/wordpress/renova/?p=5">Hello world!</a>
-                                                    </li>
+                                            		<section id="recent-posts-2" class="blog-side-panel widget_recent_entries">		
+                                                            <h2>Recent Posts</h2>		
+                                                            <ul>
+                                                    <c:forEach begin="0" end="3" var="n" items="${newsBean.getNews('Top5','')}">
+                                                            <li>
+                                                                <a href="NewsDetail.jsp?id=${n.id}">${n.title}</a>
+                                                            </li>
+                                                    </c:forEach>
                                                 </ul>
                                             </section>
                                             <section id="archives-2" class="blog-side-panel widget_archive"><h2>Archives</h2>		<ul>
-                                                    <li><a href="http://designova.net/themes/wordpress/renova/?m=201307">July 2013</a></li>
-                                                    <li><a href="http://designova.net/themes/wordpress/renova/?m=201306">June 2013</a></li>
+                                                    <li><a href="NewsPage.jsp?type=Date&content=2014.07">July 2014</a></li>
+                                                    <li><a href="NewsPage.jsp?type=Date&content=2014.06">June 2014</a></li>
                                                 </ul>
                                             </section>
                                                    </article> 
@@ -198,7 +195,7 @@
                     <section class="container">
                         <div class="row">
                             <article class="contactus span12 text-center">
-                                <a href="#" class="logo"><img src="Images/foot-badge.png"></a>
+                                <a href="#" class="logo"><img src="images/foot-badge.png"></a>
                                 <h1>FPT-Aptech <span>|</span> C1208G #G2</h1>
                             </article>
                         </div>
@@ -207,25 +204,25 @@
                             <article class="span12 text-center">
                                 <nav class="social-links">
                                     <a class="facebook" href="http://facebook.com/" target="_blank">
-                                        <img title="renova" src="Images/footer_facebook.png" >
+                                        <img title="renova" src="images/footer_facebook.png" >
                                     </a>
                                     <a class="twitter" href="http://twitter.com/" target="_blank">
-                                        <img title="renova" src="Images/footer_twitter.png" >
+                                        <img title="renova" src="images/footer_twitter.png" >
                                     </a>
                                     <a class="google" href="http://google.com/" target="_blank">
-                                        <img title="renova" src="Images/footer_google.png" >
+                                        <img title="renova" src="images/footer_google.png" >
                                     </a>
                                     <a class="linkedin" href="http://linkedin.com/" target="_blank">
-                                        <img title="renova" src="Images/footer_linkedin.png" >
+                                        <img title="renova" src="images/footer_linkedin.png" >
                                     </a>
                                     <a class="dribbble" href="http://dribbble.com/" target="_blank">
-                                        <img title="renova" src="Images/footer_dribble.png" >
+                                        <img title="renova" src="images/footer_dribble.png" >
                                     </a>
                                     <a class="pinterest" href="http://pinterest.com/" target="_blank">
-                                        <img title="renova" src="Images/footer_pinterest.png">
+                                        <img title="renova" src="images/footer_pinterest.png">
                                     </a>
                                     <a class="rss" href="http://rss.com/" target="_blank">
-                                        <img title="renova" src="Images/footer_rss.png" >
+                                        <img title="renova" src="images/footer_rss.png" >
                                     </a>
                                 </nav>
                             </article>
@@ -270,7 +267,7 @@
         <script src="assets/js/bootstrap-carousel.js" type="text/javascript"></script> 
         <script src="assets/js/bootstrap-typeahead.js" type="text/javascript"></script> 
         <script src="assets/js/bootstrap-affix.js" type="text/javascript"></script> 
-        <script src="javascripts/jquery.waitforImages.js"></script> 
+        <script src="javascripts/jquery.waitforimages.js"></script> 
         <script src="javascripts/modernizr.custom.js" type="text/javascript"></script>
         <script src="javascripts/waypoints.min.js" type="text/javascript"></script>
         <script src="javascripts/jquery.hoverdir.js" type="text/javascript"></script>
@@ -303,12 +300,12 @@
             });
         </script>
 
-        <!-- Full Screen Background Images are defined via JS here: -->
+        <!-- Full Screen Background images are defined via JS here: -->
         <script>
             $.backstretch([
-                "Images/bg1.jpg",
-                "Images/bg2.jpg",
-                "Images/bg3.jpg"
+                "images/bg1.jpg",
+                "images/bg2.jpg",
+                "images/bg3.jpg"
             ], {
                 fade: 3000,
                 duration: 4000

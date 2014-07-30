@@ -73,11 +73,7 @@ _queryID integer not null,
 _username varchar(20)  not null,
 _content text not null,
 _date datetime default GETDATE(),
-<<<<<<< HEAD
-_status int default 0, /*0=unread, 1=read */
-=======
 _status int default 0, /* 0 =unread 1=read */
->>>>>>> 2618a789f63fa5d60a6e60ce037724b40b286693
  foreign key (_queryID) references tbl_Query(_id),
 foreign key (_username) references tbl_Account(_username)
 

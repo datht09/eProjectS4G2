@@ -1,6 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<jsp:useBean id="newsBean" scope="session" class="DataAccess.DBFunctionNews"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -95,8 +97,8 @@
                     </div> 
                 </div> 
             </section>
-            
-           
+
+
             <!-- Desktop Only NAVIGATION -->
             <div class="navigation hidden-phone hidden-tablet">
                 <ul id="main-nav">
@@ -111,8 +113,8 @@
                     </li>
                 </ul>
             </div>
-            
-            
+
+
             <section id="news" class=" master-section">
 
                 <div id="promo1" class="single_post_bg">
@@ -124,166 +126,57 @@
                                     <div class="row add-top add-bottom">
                                         <article class="span9 blog-block">
 
+                                            <c:forEach var="n" items="${newsBean.getNews(param.type,param.content)}">
 
-                                            <section class="add-bottom">
-                                                <h2 class="blog-caps">
-                                                    <a href="NewsDetail.jsp">Awesome chart shows 50 countries with homegrown tech titans, but only 13 of those nations are in Asia</a>
-                                                </h2>
-                                                <div class="blog-stats">
-                                                    By <span class="stat_hl">designovawp</span> on <span class="stat_hl">
-                                                        July 5th</span>
-                                                </div>
-                                                <nav>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
-                                                </nav></br>
+                                                <section class="add-bottom">
+                                                    <h2 class="blog-caps">
+                                                        <a href="NewsDetail.jsp?id=${n.id}">${n.title}"</a>
+                                                    </h2>
+                                                    <div class="blog-stats">
+                                                        By <span class="stat_hl">${n.username}</span> on <span class="stat_hl">
+                                                            ${n.cDate}</span>
+                                                    </div>
+                                                    <nav>
+                                                        <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
+                                                        <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
+                                                        <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
+                                                        <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
+                                                        <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
+                                                    </nav></br>
 
-                                                <div class="blog-thumb-single">
-                                                    <img width="600" height="400" src="images/news/4.jpg" class=" wp-post-image" alt="2"></div>
+                                                    <div class="blog-thumb-single">
+                                                        <img width="600" height="400" src="images/news/${n.thumbnail}" class=" wp-post-image" alt="2"></div>
 
-                                                <div class="blog-para">
-                                                    <p>
-                                                        An interesting report from the Economist yesterday crunched data from the World Startup Report and lists the top three most valued tech companies in numerous countries. Of course, the US and China lead the world with the likes of Alibaba and Google topping the chart. In the top ten, there are only three Asian countries with their own tech titans: Japan, South Korea, and China. Australia appears in 13th place.
-                                                    </p>
-                                                </div>
-                                                
-                                            </section>
-                                            
-                                            <section class="add-bottom">
-                                                <h2 class="blog-caps">
-                                                    <a href="NewsDetail.jsp">Wing Up takes inspiration from Nintendo and Flappy Bird to make another addictive game from Vietnam</a>
-                                                </h2>
-                                                <div class="blog-stats">
-                                                    By <span class="stat_hl">designovawp</span> on <span class="stat_hl">
-                                                        July 5th</span>
+                                                    <div class="blog-para">
+                                                        <p>
+                                                            ${n.summary}
+                                                        </p>
+                                                    </div>
+                                                    <a href="NewsDetail.jsp?id=${n.id}" class="btn btn-renova-alt isolatepage_readmore">Read Full</a>
+                                                    <br/><br/><br/>
+                                                </section>
+                                            </c:forEach>
 
-                                                </div>                  
-                                                <nav>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
-                                                </nav></br>
-                                                <div class="blog-thumb-single">
-                                                    <img width="600" height="400" src="images/news/5.jpg" class=" wp-post-image" alt="2"></div>
-
-                                                <div class="blog-para">
-                                                    <p>
-                                                        There’s been hundreds of Flappy Bird clones out there ever since the simple game topped the charts across the world. Although there’s been some innovation on the original concept from Dong Nguyen’s dotGEARS with games like Mr. Flap or Freaking Math, most games have stuck to the original “creature goes through pipes” gameplay. And after the craze of 2048, some devs have even attempted to combine the two smash hits. 
-                                                    </p>
-                                                </div>
-                                                
-                                            </section>
-                                            
-                                            <section class="add-bottom">
-                                                <h2 class="blog-caps">
-                                                    <a href="NewsDetail.jsp">500 Startups-funded Vietnamese mobile app developer Greengar shuts down to pursue new projects</a>
-                                                </h2>
-                                                <div class="blog-stats">
-                                                    By <span class="stat_hl">designovawp</span> on <span class="stat_hl">
-                                                        July 5th</span>
-
-                                                </div>                  
-                                                <nav>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
-                                                </nav></br>
-                                                <div class="blog-thumb-single">
-                                                    <img width="600" height="400" src="images/news/6.jpg" class=" wp-post-image" alt="2"></div>
-
-                                                <div class="blog-para">
-                                                    <p>
-                                                        There’s been a lot of drama in the Vietnamese startup ecosystem recently. A few weeks ago, Le Thi Thu Thuy, the CEO of VinEcom, Vietnam’s biggest ever ecommerce project stepped down from her position. Just yesterday, Rita Nguyen, the founder and CEO of MySquar, stepped down after an apparent power struggle. Today, we’ve got one more dramatic development. Greengar, one of Vietnam’s most promising mobile app startups, officially closed down. The announcement was made today on the Medium blog of the founder Truong Thanh Thuy. In a post titled “Failure of a success,” she states:
-                                                    </p>
-                                                </div>
-                                                
-                                            </section>
-                                            
-                                            <section class="add-bottom">
-                                                <h2 class="blog-caps">
-                                                    <a href="NewsDetail.jsp">Bet against your Facebook friends on this year’s World Cup with the help of Sepp.com</a>
-                                                </h2>
-                                                <div class="blog-stats">
-                                                    By <span class="stat_hl">designovawp</span> on <span class="stat_hl">
-                                                        July 5th</span>
-
-                                                </div>                  
-                                                <nav>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
-                                                </nav></br>
-                                                <div class="blog-thumb-single">
-                                                    <img width="600" height="400" src="images/news/7.jpg" class=" wp-post-image" alt="2"></div>
-
-                                                <div class="blog-para">
-                                                    <p>
-                                                        If you’re like some of us at Tech In Asia, you’re staying up late into the night (or early morning) to catch a glimpse of amazing goals from folks like the now infamous Robin Van Persie. In the midst of this year’s World Cup, global tech companies are finding ways to capitalize on soccer fever. Facebook featured last night’s matches on its new Trending feature, Twitter has dedicated a hashtag and column, and even Google’s been sporting a World Cup doodle. From the little town of Da Nang, off of the central coast of Vietnam, comes friendly betting startup Sepp.com. 
-                                                    </p>
-                                                </div>
-                                                
-                                            </section>
-                                            
-                                            <section class="add-bottom">
-                                                <h2 class="blog-caps">
-                                                    <a href="NewsDetail.jsp">Appota, Vietnamese mobile content platform, secures series B funding</a>
-                                                </h2>
-                                                <div class="blog-stats">
-                                                    By <span class="stat_hl">designovawp</span> on <span class="stat_hl">
-                                                        July 5th</span>
-
-                                                </div>                  
-                                                <nav>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/05.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
-                                                    <a href="#"><img style="height: 20px" src="images/news/icons/04.png"/></a>
-                                                </nav></br>
-                                                <div class="blog-thumb-single">
-                                                    <img width="600" height="400" src="images/news/8.jpg" class=" wp-post-image" alt="2"></div>
-
-                                                <div class="blog-para">
-                                                    <p>
-                                                        Appota, one of Vietnam’s most promising mobile startups, has just raised an undisclosed series B funding with two investors from Japan and Singapore. This will mark a new chapter in the startup, which has up to now been mainly targeted at the domestic Vietnamese market. The new round of funding will go not only to expanding Appota’s interests at home but also targeting a more global market. 
-                                                    </p>
-                                                </div>
-                                                
-                                            </section>
                                             << 1,2,3,... >>
 
                                         </article><!-- left-side : ends-->
                                         <article class="span3 blog-side-panel side-panel">
-                                            		<section id="recent-posts-2" class="blog-side-panel widget_recent_entries">		<h2>Recent Posts</h2>		<ul>
-                                                    <li>
-                                                        <a href="http://designova.net/themes/wordpress/renova/?p=242">Quote Post</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="http://designova.net/themes/wordpress/renova/?p=181">Hello World</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="http://designova.net/themes/wordpress/renova/?p=168">Sample Audio Post</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="http://designova.net/themes/wordpress/renova/?p=5">Hello world!</a>
-                                                    </li>
+                                            <section id="recent-posts-2" class="blog-side-panel widget_recent_entries">		
+                                                <h2>Recent Posts</h2>		
+                                                <ul>
+                                                    <c:forEach begin="0" end="3" var="n" items="${newsBean.getNews('Top5','')}">
+                                                            <li>
+                                                                <a href="NewsDetail.jsp?id=${n.id}">${n.title}</a>
+                                                            </li>
+                                                    </c:forEach>
                                                 </ul>
                                             </section>
                                             <section id="archives-2" class="blog-side-panel widget_archive"><h2>Archives</h2>		<ul>
-                                                    <li><a href="http://designova.net/themes/wordpress/renova/?m=201307">July 2013</a></li>
-                                                    <li><a href="http://designova.net/themes/wordpress/renova/?m=201306">June 2013</a></li>
+                                                    <li><a href="NewsPage.jsp?type=Date&content=2014.07">July 2014</a></li>
+                                                    <li><a href="NewsPage.jsp?type=Date&content=2014.06">June 2014</a></li>
                                                 </ul>
                                             </section>
-                                                   </article> 
+                                        </article> 
                                     </div><!-- row : ends -->
 
 
@@ -296,9 +189,9 @@
                 </div>  
 
             </section>
-            
-          
-            
+
+
+
 
 
 
@@ -361,7 +254,7 @@
 
         </div>
         <!--main-wrapper:ends-->
-        
+
         <!-- Le javascript
             ================================================== --> 
         <!-- Placed at the end of the document so the pages load faster --> 

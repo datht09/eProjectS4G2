@@ -17,7 +17,6 @@
     position: relative;
 }
 .cbp_tmtimeline:before {
-    background: none repeat scroll 0 0 #FFC000;
     bottom: 0;
     content: "";
     left: 20%;
@@ -38,7 +37,7 @@
 }
 .cbp_tmtimeline > li .cbp_tmtime span:last-child {
     color: #222222;
-    font-size: 2.4em;
+    font-size: 2em;
 }
 .cbp_tmtimeline > li:nth-child(2n+1) .cbp_tmtime span:last-child {
     color: #FFC000;
@@ -51,7 +50,7 @@
     position: relative;
 }
 .cbp_tmlabel p {
-    font-size: 1.1em;
+    font-size: 1.8em;
     font-weight: 400;
     line-height: 1.6em;
 }
@@ -84,8 +83,6 @@
     border-right-color: #FFC000;
 }
 .cbp_tmtimeline > li .cbp_tmicon {
-    background: #111111 url('../images/dark-bg.png') repeat;
-    border-radius: 50% 50% 50% 50%;
     box-shadow: 0 0 0 8px #FFC000;
     color: #FFFFFF;
     font-family: 'ecoico';
@@ -116,8 +113,8 @@
 }
 .cbp_tmtimeline > li .cbp_tmtime span:last-child {
     margin-top: 40px;
-    font-size: 4.0em;
-font-family:"Open_Sans_B";
+    font-size: 1.8em;
+    font-family:"Open_Sans_B";
 }
 .cbp_tmtimeline:before, .cbp_tmtimeline > li .cbp_tmicon {
     left: 30%;
