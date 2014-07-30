@@ -76,7 +76,7 @@
 
     </head>
 
-    <body id="body">
+    <body id="body" style="background-color: #C1C5C8">
 
         <c:set var="user" value="${sessionScope.user}"/>
         <c:if test="${user==null}">
@@ -226,8 +226,8 @@
                                 <article class="span6 offset3 testimonial-block">
                                     <div class="row-fluid">
 
-                                        <article class="span6 offset3">
-                                            <img alt="renova" title="renova" src="${us.imageurl}"/>
+                                        <article style="margin-top: 20px" class="span6 offset3">
+                                            <img  alt="renova" title="renova" src="${us.imageurl}"/>
                                         </article>
                                         <article class="span10 remove-left testimonial-content text-left" style="padding-left: 80px ; width: auto;">
 

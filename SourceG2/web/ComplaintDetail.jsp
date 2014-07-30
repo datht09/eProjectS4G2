@@ -73,6 +73,9 @@
     </head>
 
     <body id="body">
+        <c:if test="${user==null}">
+            <c:redirect url="Login.jsp"/>
+        </c:if>
         <c:set var="query" value="${mrBean.getQueryById(param['id'])}"/>
         <!--MAIN WRAPPER--> 
         <div class="main-wrapper">

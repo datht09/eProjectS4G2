@@ -73,6 +73,9 @@
     </head>
 
     <body id="body">
+        <c:if test="${user==null}">
+            <c:redirect url="Login.jsp"/>
+        </c:if>
 
         <!--MAIN WRAPPER--> 
         <div class="main-wrapper">
@@ -103,7 +106,7 @@
             <div class="navigation hidden-phone hidden-tablet">
                 <ul id="main-nav">
                     <li>
-                        <a class="scroll-link" href="HomePage.jsp" id="home-linker" data-soffset="100">home</a>
+                        <a class="scroll-link" href="HomePage.jsp?index=1" id="home-linker" data-soffset="100">home</a>
                     </li>
                     <li class="logo-wrap">
                         <a class="scroll-link logo" href="#body" data-soffset="100"><img src="images/logo.png"/></a>
