@@ -16,8 +16,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -42,7 +40,7 @@ public class Admin {
             preparedStatement.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(DBFunction.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
         return lst;
@@ -65,7 +63,7 @@ public class Admin {
             preparedStatement.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
         return lst;
@@ -198,7 +196,7 @@ public class Admin {
             }
             pre.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+          
         }
         return arr;
     }
@@ -227,7 +225,7 @@ public class Admin {
             preparedStatement.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
         return acc;
@@ -248,7 +246,7 @@ public class Admin {
             }
             preparedStatement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+           
         }
 
         return result;
@@ -269,7 +267,7 @@ public class Admin {
             }
             pre.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
         return i;
@@ -290,7 +288,7 @@ public class Admin {
             }
             pre.close();
         } catch (SQLException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+         
         }
 
         return i;
@@ -306,7 +304,7 @@ public class Admin {
             String sql = "jdbc:sqlserver://localhost:1433;databaseName=FIS";
             con = DriverManager.getConnection(sql, user, pass);
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+         
         }
         return con;
     }

@@ -1,0 +1,20 @@
+.tile-title.tile-orange {
+    background: #ff9900;
+}
+.tile-title.tile-orange:hover {
+    background-color: #ff9933;
+}
+.tile-title.tile-orange .icon i,
+.tile-title.tile-orange h3,
+.tile-title.tile-orange p {
+  color: #ffffff;
+}
+.tile-title.tile-orange .icon i {
+  color: #ffffff;
+}
+.tile-title.tile-orange .title {
+  background: rgba(0, 0, 0, 0.1);
+}
+.tile-title.tile-orange .title p {
+  color: rgba(255, 255, 255, 0.85);
+}

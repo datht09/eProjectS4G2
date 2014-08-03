@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,6 +37,184 @@ import java.util.logging.Logger;
  */
 public class DBFunctionNews {
 
+     private static final String[] tensNames = {
+    "",
+    "ten",
+    "twenty",
+    "thirty",
+    "forty",
+    "fifty",
+    "sixty",
+    "seventy",
+    "eighty",
+    "ninety"
+  };
+
+  private static final String[] numNames = {
+    "",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen"
+  };
+
+
+
+  private static String convertLessThanOneThousand(int number) {
+    String soFar;
+
+    if (number % 100 < 20){
+      soFar = numNames[number % 100];
+      number /= 100;
+    }
+    else {
+      soFar = numNames[number % 10];
+      number /= 10;
+
+      soFar = tensNames[number % 10] + soFar;
+      number /= 10;
+    }
+    if (number == 0) return soFar;
+    return numNames[number] + "hundred" + soFar;
+  }
+
+
+  public  String convertToString(long number) {
+    // 0 to 999 999 999 999
+    if (number == 0) { return "zero"; }
+
+    String snumber = Long.toString(number);
+
+    // pad with "0"
+    String mask = "000000000000";
+    DecimalFormat df = new DecimalFormat(mask);
+    snumber = df.format(number);
+
+    // XXXnnnnnnnnn
+    int billions = Integer.parseInt(snumber.substring(0,3));
+    // nnnXXXnnnnnn
+    int millions  = Integer.parseInt(snumber.substring(3,6));
+    // nnnnnnXXXnnn
+    int hundredThousands = Integer.parseInt(snumber.substring(6,9));
+    // nnnnnnnnnXXX
+    int thousands = Integer.parseInt(snumber.substring(9,12));
+
+    String tradBillions;
+    switch (billions) {
+    case 0:
+      tradBillions = "";
+      break;
+    case 1 :
+      tradBillions = convertLessThanOneThousand(billions)
+      + " billion";
+      break;
+    default :
+      tradBillions = convertLessThanOneThousand(billions)
+      + " billion";
+    }
+    String result =  tradBillions;
+
+    String tradMillions;
+    switch (millions) {
+    case 0:
+      tradMillions = "";
+      break;
+    case 1 :
+      tradMillions = convertLessThanOneThousand(millions)
+         + " million";
+      break;
+    default :
+      tradMillions = convertLessThanOneThousand(millions)
+         + " million";
+    }
+    result =  result + tradMillions;
+
+    String tradHundredThousands;
+    switch (hundredThousands) {
+    case 0:
+      tradHundredThousands = "";
+      break;
+    case 1 :
+      tradHundredThousands = "onethousand";
+      break;
+    default :
+      tradHundredThousands = convertLessThanOneThousand(hundredThousands)
+         + "thousand";
+    }
+    result =  result + tradHundredThousands;
+
+    String tradThousand;
+    tradThousand = convertLessThanOneThousand(thousands);
+    result =  result + tradThousand;
+
+    // remove extra spaces!
+    return result;
+  }
+
+     public Account getAccDetails(String user, int role) {
+        Account acc = null;
+        String sql = "select * from tbl_AccountInfo where _username=?";
+
+        try {
+
+            PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, user);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                acc = new Account();
+                acc.setUsername(user);
+                acc.setFullname(rs.getString("_fullname"));
+                acc.setDepartmentid(getDepartmentName(rs.getString("_departmentID")));
+                acc.setEmail(rs.getString("_email"));
+                acc.setAddress(rs.getString("_address"));
+                acc.setImageurl(rs.getString("_image"));
+                acc.setRole(role);
+                acc.setPhone(rs.getString("_phonenumber"));
+
+            }
+            preparedStatement.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunctionNews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return acc;
+    }
+         private String getDepartmentName(String id) {
+
+        String result = "";
+        String sql = "select * from tbl_Department where _id=?";
+
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                result = rs.getString("_name");
+
+            }
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunctionNews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return result;
+    }
     ArrayList<String> arr = new ArrayList<>();
 
     private String getMonthForInt(int num) {
@@ -140,6 +319,25 @@ public class DBFunctionNews {
         return temp;
     }
 
+    public boolean addNews(String title, String content, String summary, String thumbnail, String username) {
+        int result = 0;
+        try {
+            Connection conn = getConnection();
+            String sql = "INSERT INTO tbl_Article (_title,_content,_summary,_thumbnail,_username) VALUES(?,?,?,?,?)";
+            PreparedStatement prst = conn.prepareStatement(sql);
+            prst.setString(1, title);
+            prst.setString(2, content);
+            prst.setString(3, summary);
+            prst.setString(4, thumbnail);
+            prst.setString(5, username);
+            result = prst.executeUpdate();
+            prst.close();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunctionNews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result > 0;
+    }
     private Connection getConnection() {
         Connection con = null;
 

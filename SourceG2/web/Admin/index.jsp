@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="mrBean" scope="session" class="DataAccess.Admin"/>
+<jsp:useBean id="adBean1" scope="session" class="DataAccess.Admin"/>
 <jsp:useBean id="autoBean" scope="session" class="DataAccess.AutoGenerate"/>
 
 <!DOCTYPE html>
@@ -135,21 +135,10 @@
                     <div class="well nav-collapse sidebar-nav">
                         <ul class="nav nav-tabs nav-stacked main-menu">
                             <li class="nav-header hidden-tablet">Main</li>
-                            <li><a class="ajax-link" href="index.html"><i class="icon-home"></i><span class="hidden-tablet"> Dashboard</span></a></li>
-                            <li><a class="ajax-link" href="ui.html"><i class="icon-eye-open"></i><span class="hidden-tablet"> UI Features</span></a></li>
-                            <li><a class="ajax-link" href="form.html"><i class="icon-edit"></i><span class="hidden-tablet"> Forms</span></a></li>
-                            <li><a class="ajax-link" href="chart.html"><i class="icon-list-alt"></i><span class="hidden-tablet"> Charts</span></a></li>
-                            <li><a class="ajax-link" href="typography.html"><i class="icon-font"></i><span class="hidden-tablet"> Typography</span></a></li>
-                            <li><a class="ajax-link" href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet"> Gallery</span></a></li>
-                            <li class="nav-header hidden-tablet">Sample Section</li>
-                            <li><a class="ajax-link" href="table.html"><i class="icon-align-justify"></i><span class="hidden-tablet"> Tables</span></a></li>
-                            <li><a class="ajax-link" href="calendar.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
-                            <li><a class="ajax-link" href="grid.html"><i class="icon-th"></i><span class="hidden-tablet"> Grid</span></a></li>
-                            <li><a class="ajax-link" href="file-manager.html"><i class="icon-folder-open"></i><span class="hidden-tablet"> File Manager</span></a></li>
-                            <li><a href="tour.html"><i class="icon-globe"></i><span class="hidden-tablet"> Tour</span></a></li>
-                            <li><a class="ajax-link" href="icon.html"><i class="icon-star"></i><span class="hidden-tablet"> Icons</span></a></li>
-                            <li><a href="error.html"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Error Page</span></a></li>
-                            <li><a href="login.html"><i class="icon-lock"></i><span class="hidden-tablet"> Login Page</span></a></li>
+                            <li><a class="ajax-link" href="index.jsp"><i class="icon-home"></i><span class="hidden-tablet"> Dashboard</span></a></li>
+        
+                            <li><a class="ajax-link" href="AddNews.jsp"><i class="icon-edit"></i><span class="hidden-tablet"> Add News</span></a></li>
+                         
                         </ul>
                         <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
                     </div><!--/.well -->
@@ -178,44 +167,44 @@
                         </ul>
                     </div>
                     <div class="sortable row-fluid">
-                        <a data-rel="tooltip" title="${mrBean.getNewTotal(100)} new Complaint in today" class="well span3 top-block" href="index.jsp?status=100" style="width:115px;">
-                            <span class="icon32 icon-darkgray icon-sent"></span>
+                        <a data-rel="tooltip" title="${adBean1.getNewTotal(100)} new Complaint in today" class="well span3 top-block" href="index.jsp?status=100" style="width:115px;">
+                            <span class="icon32 icon-blue icon-sent"></span>
                             <div>All Complaint</div>
-                            <div>${mrBean.getTotal(100)}</div>
-                            <span class="notification">${mrBean.getNewTotal(100)}</span>
+                            <div>${adBean1.getTotal(100)}</div>
+                            <span class="notification">${adBean1.getNewTotal(100)}</span>
                         </a>
 
-                        <a data-rel="tooltip" title="${mrBean.getNewTotal(0)} new complaint pending in today." class="well span3 top-block" href="index.jsp?status=0" style="width:115px;">
+                        <a data-rel="tooltip" title="${adBean1.getNewTotal(0)} new complaint pending in today." class="well span3 top-block" href="index.jsp?status=0" style="width:115px;">
                             <span class="icon32 icon-color icon-clock"></span>
                             <div>Pending</div>
-                            <div>${mrBean.getTotal(0)}</div>
-                            <span class="notification yellow">${mrBean.getNewTotal(0)}</span>
+                            <div>${adBean1.getTotal(0)}</div>
+                            <span class="notification yellow">${adBean1.getNewTotal(0)}</span>
                         </a>
 
-                        <a data-rel="tooltip" title="$${mrBean.getNewTotal(1)} new complaint Processing." class="well span3 top-block" href="index.jsp?status=1" style="width:115px;">
+                        <a data-rel="tooltip" title="$${adBean1.getNewTotal(1)} new complaint Processing." class="well span3 top-block" href="index.jsp?status=1" style="width:115px;">
                             <span class="icon32 icon-blue icon-gear"></span>
                             <div>Processing</div>
-                            <div>${mrBean.getTotal(1)}</div>
-                            <span class="notification blue">${mrBean.getNewTotal(1)}</span>
+                            <div>${adBean1.getTotal(1)}</div>
+                            <span class="notification blue">${adBean1.getNewTotal(1)}</span>
                         </a>
 
-                        <a data-rel="tooltip" title="${mrBean.getNewTotal(2)} new complaint resolved." class="well span3 top-block" href="index.jsp?status=2" style="width:115px;">
+                        <a data-rel="tooltip" title="${adBean1.getNewTotal(2)} new complaint resolved." class="well span3 top-block" href="index.jsp?status=2" style="width:115px;">
                             <span class="icon32 icon-color icon-check"></span>
                             <div>Resolved</div>
-                            <div>${mrBean.getTotal(2)}</div>
-                            <span class="notification green">${mrBean.getNewTotal(2)}</span>
+                            <div>${adBean1.getTotal(2)}</div>
+                            <span class="notification green">${adBean1.getNewTotal(2)}</span>
                         </a>
-                        <a data-rel="tooltip" title="${mrBean.getNewTotal(3)} new complaint NOT resolved." class="well span3 top-block" href="index.jsp?status=3" style="width:115px;">
+                        <a data-rel="tooltip" title="${adBean1.getNewTotal(3)} new complaint NOT resolved." class="well span3 top-block" href="index.jsp?status=3" style="width:115px;">
                             <span class="icon32 icon-red icon-close"></span>
                             <div>NOT Resolved</div>
-                            <div>${mrBean.getTotal(3)}</div>
-                            <span class="notification red">${mrBean.getNewTotal(3)}</span>
+                            <div>${adBean1.getTotal(3)}</div>
+                            <span class="notification red">${adBean1.getNewTotal(3)}</span>
                         </a>
-                        <a data-rel="tooltip" title="${mrBean.getNewTotal(4)} new complaint cancel." class="well span3 top-block" href="index.jsp?status=4" style="width:115px;">
+                        <a data-rel="tooltip" title="${adBean1.getNewTotal(4)} new complaint cancel." class="well span3 top-block" href="index.jsp?status=4" style="width:115px;">
                             <span class="icon32 icon-black icon-cancel"></span>
                             <div>Cancel</div>
-                            <div>${mrBean.getTotal(4)}</div>
-                            <span class="notification red">${mrBean.getNewTotal(4)}</span>
+                            <div>${adBean1.getTotal(4)}</div>
+                            <span class="notification red">${adBean1.getNewTotal(4)}</span>
                         </a>
                     </div>
 
@@ -249,7 +238,7 @@
                                                 Department:
                                                 <br/>
                                                 <select id="selectError1"  style="width:180px;" name="department" multiple data-rel="chosen">
-                                                    <c:forEach var="de" items="${mrBean.listDepartment}">
+                                                    <c:forEach var="de" items="${adBean1.listDepartment}">
                                                           <c:if test= "${not empty param.department}">
                                                         <c:forEach var="paramde" items="${paramValues.department}">
                                                             <c:if test="${paramde==de.id}">
@@ -269,7 +258,7 @@
                                             <div style="float: left; margin-left:20px;">
                                                 Category: <br/>
                                                 <select id="selectError2" name="category" style="width:200px;" multiple data-rel="chosen">
-                                                    <c:forEach var="cate" items="${mrBean.listCategory}">
+                                                    <c:forEach var="cate" items="${adBean1.listCategory}">
                                                         <c:if test= "${not empty param.category}">
                                                             <c:forEach var="paramcate" items="${paramValues.category}">
                                                                 <c:if test="${paramcate==cate.id}">
@@ -331,10 +320,10 @@
 
                                     <tbody>
 
-                                        <c:forEach var="com" items="${mrBean.getQueries(param.status,paramValues,param.start,param.end)}">
+                                        <c:forEach var="com" items="${adBean1.getQueries(param.status,paramValues,param.start,param.end)}">
                                             <tr>
 
-                                                <td><a href="#?id=${com.user}" style="color: #003bb3; font-weight:bold;"><img src="${mrBean.getAccDetails(com.user,1).imageurl}" style="width:32px; height:32px; margin:-5px; margin-right:5px;"/>${mrBean.getAccDetails(com.user,1).fullname}</a></td>
+                                                <td><a href="#?id=${com.user}" style="color: #003bb3; font-weight:bold;"><img src="${adBean1.getAccDetails(com.user,1).imageurl}" style="width:32px; height:32px; margin:-5px; margin-right:5px;"/>${adBean1.getAccDetails(com.user,1).fullname}</a></td>
                                                 <td class="center">${com.depart}</td>
                                                 <td class="center">${com.category}</td>   
                                                 <td class="center" style="color:#73a839; font-weight:bolder;" >${com.datelod}</td>

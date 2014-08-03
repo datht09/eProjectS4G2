@@ -6,14 +6,19 @@
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
         <action name="loginAction" class="MyAction.loginAction">
-            <result>HomePage.jsp?index=1</result>
-            <result name="FAILED">Login.jsp</result>
+            <result>homered.jsp</result>
+            <result name="ADMIN">red.jsp</result>
+            <result name="FAILED">login.html</result>
         </action>
         <action name="sendQueryAction" class="MyAction.sendQueryAction">
-            <result>HomePage.jsp?index=1</result>
+            <result name="success">sendCP.jsp</result>
+     
         </action>
         <action name="sendReplyAction" class="MyAction.sendReplyAction">
             <result>HomePage.jsp?index=1</result>
+        </action>
+        <action name="addNewsAction" class="MyAction.addNewsAction">
+            <result>Admin/AddNews.jsp</result>
         </action>
     </package>
     

@@ -19,7 +19,7 @@ public class Query {
     private String content;
     private String dateOfLodging;
     private String dateOfClosing;
-    private int status;
+    private String status;
 
     public int getId() {
         return id;
@@ -28,6 +28,16 @@ public class Query {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+   
 
     public String getUsername() {
         return username;
@@ -85,26 +95,7 @@ public class Query {
         this.dateOfClosing = dateOfClosing;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public Query(int id, String username, String departmentID, String category, String subject, String content, String dateOflodging, String dateOfClosing, int status) {
-        this.id = id;
-        this.username = username;
-        this.departmentID = departmentID;
-        this.category = category;
-        this.subject = subject;
-        this.content = content;
-        this.dateOfLodging = dateOflodging;
-        this.dateOfClosing = dateOfClosing;
-        this.status = status;
-    }
-
+  
     public Query() {
     }
     

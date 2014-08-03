@@ -131,6 +131,21 @@
                                                         ${query.content}
                                                 </div>
                                             </div>
+                                                <c:if test="${query.status == 0}">
+                                        <h3 class="promo-text" ><span>Status: Pending</span></h3>
+                                    </c:if>
+                                    <c:if test="${query.status == 1}">
+                                        <h3 class="promo-text"><span>Status: Processing</span></h3>
+                                    </c:if>
+                                    <c:if test="${query.status == 2}">
+                                        <h3 class="promo-text"><span style="background: #009900;">Status: Resolved</span></h3>
+                                    </c:if>
+                                    <c:if test="${query.status == 3}">
+                                        <h3 class="promo-text"><span style="background: #CC0000;">Status: Not Resolved</span></h3>
+                                    </c:if>
+                                    <c:if test="${query.status == 4}">
+                                        <h3 class="promo-text"><span style="background: #CC0000;">Status: Cancel</span></h3>
+                                    </c:if>
                                         </article>
                                     </div>
 

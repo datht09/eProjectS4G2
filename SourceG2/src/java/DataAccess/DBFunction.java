@@ -229,33 +229,27 @@ public class DBFunction {
         return con;
     }
 
-    public List<Query> getListQuery(String username, int index) {
-        String sql = "SELECT *  FROM\n"
-                + "  (SELECT  ROW_NUMBER() OVER (ORDER BY _id DESC) as MyRowNumber,*\n"
-                + "  FROM tbl_Query WHERE _username=?) tbl_Query\n"
-                + "WHERE MyRowNumber BETWEEN ( ((? - 1) * ? )+ 1) AND ?*?";
-        int pagesize = 3;
+    public List<Query> getListQuery(String username) {
+        String sql ="select * from tbl_Query where _username like ? order by _id asc";
+      
         List<Query> lst = new ArrayList<>();
         try {
 
             PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
             preparedStatement.setString(1, username);
-            preparedStatement.setInt(2, index);
-            preparedStatement.setInt(3, pagesize);
-            preparedStatement.setInt(4, index);
-            preparedStatement.setInt(5, pagesize);
+            
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Query query = new Query();
                 query.setId(rs.getInt("_id"));
-                query.setCategory(rs.getString("_category"));
+                query.setCategory(AutoGenerate.getCategoryName(rs.getString("_category")));
                 query.setUsername(rs.getString("_username"));
-                query.setDepartmentID(rs.getString("_departmentID"));
+                query.setDepartmentID(getDepartmentName(rs.getString("_departmentID")));
                 query.setSubject(rs.getString("_subject"));
                 query.setContent(rs.getString("_content"));
-                query.setDateOfLodging(rs.getString("_dateoflodging"));
-                query.setDateOfClosing(rs.getString("_dateofclosing"));
-                query.setStatus(rs.getInt("_status"));
+                query.setDateOfLodging(rs.getDate("_dateoflodging").toString());
+                query.setDateOfClosing(rs.getDate("_dateofclosing").toString());
+                query.setStatus(AutoGenerate.getStatusComplaint(rs.getInt("_status")));
                 lst.add(query);
             }
             preparedStatement.close();
@@ -279,14 +273,14 @@ public class DBFunction {
             while (rs.next()) {
                 Query query = new Query();
                 query.setId(rs.getInt("_id"));
-                query.setCategory(rs.getString("_category"));
+                query.setCategory(AutoGenerate.getCategoryName(rs.getString("_category")));
                 query.setUsername(rs.getString("_username"));
-                query.setDepartmentID(rs.getString("_departmentID"));
+                query.setDepartmentID(getDepartmentName(rs.getString("_departmentID")));
                 query.setSubject(rs.getString("_subject"));
                 query.setContent(rs.getString("_content"));
-                query.setDateOfLodging(rs.getString("_dateoflodging"));
-                query.setDateOfClosing(rs.getString("_dateofclosing"));
-                query.setStatus(rs.getInt("_status"));
+                query.setDateOfLodging(rs.getDate("_dateoflodging").toString());
+                query.setDateOfClosing(rs.getDate("_dateofclosing").toString());
+                query.setStatus(AutoGenerate.getStatusComplaint(rs.getInt("_status")));
                 lst.add(query);
             }
             preparedStatement.close();
@@ -300,10 +294,10 @@ public class DBFunction {
 
     public int countPage(int i) {
         int count;
-        if (i % 3 == 0) {
-            count = i / 3;
+        if (i % 7 == 0) {
+            count = i / 7;
         } else {
-            count = (i / 3) + 1;
+            count = (i /7) + 1;
         }
         return count;
     }
@@ -312,20 +306,20 @@ public class DBFunction {
         String sql = "SELECT *  FROM tbl_Query WHERE _id=?";
         Query query = new Query();
         try {
-
+           
             PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 query.setId(rs.getInt("_id"));
-                query.setCategory(rs.getString("_category"));
+                query.setCategory(AutoGenerate.getCategoryName(rs.getString("_category")));
                 query.setUsername(rs.getString("_username"));
-                query.setDepartmentID(rs.getString("_departmentID"));
+                query.setDepartmentID(getDepartmentName(rs.getString("_departmentID")));
                 query.setSubject(rs.getString("_subject"));
                 query.setContent(rs.getString("_content"));
                 query.setDateOfLodging(rs.getString("_dateoflodging"));
                 query.setDateOfClosing(rs.getString("_dateofclosing"));
-                query.setStatus(rs.getInt("_status"));
+                query.setStatus(AutoGenerate.getStatusComplaint(rs.getInt("_status")));
             }
             preparedStatement.close();
 
