@@ -18807,7 +18807,7 @@ body.page-fade-only-init > .page-container {
   filter: alpha(opacity=100);
 }
 .login-page {
-  background: #303641;
+ background-image:url(../images/bg7.png);
 }
 .login-page .login-content {
   position: relative;
@@ -18825,7 +18825,7 @@ body.page-fade-only-init > .page-container {
 }
 .login-page .login-header {
   position: relative;
-  background: #373e4a;
+ background: #373e4a;
   padding: 100px 0;
   -webkit-transition: all 550ms ease-in-out;
   -moz-transition: all 550ms ease-in-out;

@@ -19,7 +19,7 @@
     <body>
         <c:set var="user" value="${sessionScope.user}"/>
         <c:if test="${user==null}">
-            <c:redirect url="../login.html"/>
+            <c:redirect url="../index.html"/>
         </c:if>
         <c:set var="us" value="${mrBean.getAccDetails(user,1)}"/>
         <c:set var="lstCategory" value="${mrBean.listCategory}"/>
@@ -27,79 +27,26 @@
 
 
         <c:forEach var="n" items="${newsBean.getNews('All','')}">
-            <div id="news${n.id}" class="popup">
+            <div id="news${n.id}" class="popup" style="width:70%; margin-left:20px; margin-top:70px;">
                 <div class="popup-body"><span class="popup-exit"></span>
 
                     <div class="popup-content">
-                        <h2 class="popup-title">G2 News</h2>
-                        <br/>
 
-                        <img src="images/news/${n.thumbnail}" alt="image" style="width:200px; height:120px; float:left; margin:10px;"/>
-                        <h3 style="font-size: x-large; font-weight: bolder;">${n.title}</h3>
-                        <br/>
-                        ${n.content}
+                        <iframe id="${n.id}news" src="" height="520" style="width:100%; overflow-x: hidden;"></iframe>
+
+
                     </div>
                 </div>
             </div>
 
         </c:forEach>
         <c:forEach items="${lstQuery}" var="query">
-            <c:set var="stid" scope="session" value="${newsBean.convertToString(query.id)}"/>
-            <div  class="popup" id="${stid}" style="width:60%; height:500px; margin-left:0%; margin-top:0px;">
+
+            <div  class="popup" id="${query.id}qr" style="width:70%; height:500px; margin-left:20px; margin-top:0px; position: fixed;">
                 <div class="popup-body"><span class="popup-exit"></span>
 
-                    <div class="popup-content" style="border-bottom:1px #cccccc dashed; border-left:1px #cccccc dashed;; border-right: 1px #cccccc dashed; padding-bottom:20px;">
-                        <h2 class="popup-title">G2 My Complaint</h2>
-                        <div class="timeline-seperator text-center"> <span style="font-size: x-large;">${query.subject}</span>
-
-                        </div>
-                        <br/>
-                        <div class="chat-body no-padding profile-message">
-                            <ul>
-                                <li class="message" style="text-align: left;">
-                                    <img src="${us.imageurl}" class="online" alt="sunny" style="width:55px; height:60px;"/>
-                                    <span class="message-text">
-
-
-                                        <span style="font-size: large; font-weight: bolder; text-align:left; margin-right:10px;" >
-                                            &nbsp; ${query.content}
-                                        </span>
-                                    </span>
-
-                                </li>
-                                <br/>
-                                <br/>
-
-                                <li class="message message-reply" style="float: left;">
-                                    <img src="images/Account/photo.jpg" class="online" alt="user"/>
-                                    <span class="message-text"> <a href="javascript:void(0);" class="username">Serman Syla</a> Haha! Yeah I know what you mean. Thanks for the file Sadi! <i class="fa fa-smile-o txt-color-orange"></i> </span>
-
-                                    <ul class="list-inline font-xs">
-                                        <li>
-                                            <a href="javascript:void(0);" class="text-muted">1 minute ago </a>
-                                        </li>
-
-                                    </ul>
-
-                                </li>
-                                <li class="message message-reply" style="float: left;">
-                                    <img src="images/Account/photo.jpg" class="online" alt="user" />
-                                    <span class="message-text"> <a href="javascript:void(0);" class="username">Sadi Orlaf </a> Haha! Yeah I know what you mean. Thanks for the file Sadi! <i class="fa fa-smile-o txt-color-orange"></i> </span>
-
-                                    <ul class="list-inline font-xs">
-                                        <li>
-                                            <a href="javascript:void(0);" class="text-muted">a moment ago </a>
-                                        </li>
-
-                                    </ul>
-                                    <br/>
-
-                                    <textarea name="content" cols="88" rows="6" class="textarea" style="font-size:large"></textarea>
-                                </li>
-                            </ul>
-
-                        </div>
-
+                    <div class="popup-content" style=" padding-bottom:20px; overflow-x: hidden;">
+                        <iframe id="${query.id}query" src="" height="520" style="width:100%; overflow-x: hidden;"></iframe>
                     </div>
                 </div>
             </div>
@@ -119,12 +66,12 @@
                 <!-- Social Icons -->
                 <ul class="socialicons">
                     <li><a href="#" class="social-text">${us.fullname}</a></li>
-
+                    <li><a href="index.jsp" class="social-rs"></a></li>
                     <li><a href="#" class="social-facebook"></a></li>
                     <li><a href="#" class="social-twitter"></a></li>
                     <li><a href="#" class="social-in"></a></li>
                     <li><a href="#" class="social-googleplus"></a></li>
-                    <li><a href="#" class="social-text">LOG OUT</a></li>
+                    <li><a href="../logoutAction" class="social-logout"></a></li>
                 </ul>
                 <!-- /Social Icons -->
             </div>
@@ -212,7 +159,8 @@
                                                         <div class="slidetitle">
                                                             <h3 style="font-size: x-large;" class="slidecom">${n.title}</h3>
                                                             <a href="#" class="slidecat">${n.cDate}</a>
-                                                            <button id="popup_window" data-popup-target="#news${n.id}">Read more</button>
+                                                            <button class="badge btu"  id="popup_window" data-popup-target="#news${n.id}" data-id="#${n.id}news" qr="newsDetails.jsp?id=${n.id}">Read more</button>
+
                                                         </div>
                                                     </div>
 
@@ -237,8 +185,8 @@
                                                             <header>
                                                                 <div class="posthumb">
                                                                     <img src="images/news/${n.thumbnail}" alt="image"/>
-                                                                    <button  id="popup_window" data-popup-target="#news${n.id}" class="rdmore" title="Read More"><i class="icon-plus-sign"></i></button>
-                                                                </div>
+                                                                    <button class="rdmore" style="background-color: #ff6600"  id="popup_window" data-popup-target="#news${n.id}" data-id="#${n.id}news" qr="newsDetails.jsp?id=${n.id}"  style="background-color: #ff6600"><i class="icon-plus"></i></button>
+                                                                </div> 
                                                                 <h2><a href="#">${n.title.substring(0,30)}..</a></h2>
                                                             </header>
                                                             <div class="clearfix"></div>
@@ -258,7 +206,7 @@
                                                             <header>
                                                                 <div class="posthumb">
                                                                     <img src="images/news/${n.thumbnail}" alt="image"/>
-                                                                    <button  id="popup_window" data-popup-target="#news${n.id}" class="rdmore" title="Read More"><i class="icon-plus-sign"></i></button>
+                                                                    <button class="rdmore" style="background-color: #ff6600"  id="popup_window" data-popup-target="#news${n.id}" data-id="#${n.id}news" qr="newsDetails.jsp?id=${n.id}"  style="background-color: #ff6600"><i class="icon-plus"></i></button>
                                                                 </div>
                                                                 <h2><a href="#">${n.title.substring(0,30)}..</a></h2>
                                                             </header>
@@ -314,7 +262,7 @@
                                                         </c:if>
                                                     </div>
                                                     <footer>
-                                                        <button  id="popup_window" data-popup-target="#news${n.id}"><h4>Read More</h4></button>
+                                                        <button class="badge btu"  id="popup_window" data-popup-target="#news${n.id}" data-id="#${n.id}news" qr="newsDetails.jsp?id=${n.id}">Read more</button>
                                                         <div class="circle rborder">
                                                             <i class="icon-arrow-right"></i>
                                                         </div>
@@ -360,7 +308,7 @@
 
                     <div class="skills-section">
                         <h1 style="font-weight: bolder">TOP 3</h1>
-                        <c:forEach begin="2" end="5" var="n" items="${newsBean.newsTop5}">
+                        <c:forEach begin="2" end="5" var="n" items="${newsBean.getNews('Top5','')}">
                             <!-- Skills -->
                             <h3 class="main-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="links">${n.cDate}</a><span>${n.title}</span></h3> 
                             <ul class="skills">
@@ -370,7 +318,7 @@
                                 </li>
 
                                 <li>
-                                    <button  id="popup_window" data-popup-target="#news${n.id}"><h4>Read More</h4></button>
+                                    <button class="badge btu"  id="popup_window" data-popup-target="#news${n.id}" data-id="#${n.id}news" qr="newsDetails.jsp?id=${n.id}">Read more</button>
 
                                 </li>
 
@@ -388,6 +336,7 @@
                     <ul id="portfolio-filter">
                         &nbsp;  &nbsp;  &nbsp;  &nbsp; <li><a href="" class="current" data-filter=".mail-env">All</a></li>
                         <li><a href="" data-filter=".newcomplaint">New Complaint</a></li>
+
 
                     </ul>
 
@@ -426,7 +375,7 @@
                                     </thead>
 
                                     <!-- email list -->
-                                    <tbody id="result">
+                                    <tbody id="datrs">
 
 
 
@@ -436,10 +385,10 @@
 
                                                 <td class="col-time">
 
-                                                    <a href="../neon-x/mailbox/message/index.html" class="col-time">${query.dateOfLodging}</a>
+                                                    <a class="col-time">${query.dateOfLodging}</a>
                                                 </td>
                                                 <td class="col-subject">
-                                                    <a href="../neon-x/mailbox/message/index.html" style="margin-left:40px; text-align: center;">
+                                                    <a style="margin-left:40px; text-align: center;">
                                                         ${query.category}
                                                     </a>
 
@@ -447,36 +396,36 @@
                                                 <c:set var="siz" value="${mrBean.getListReply(query.id).size()}"/>
                                                 <c:if test="${siz>0}">
                                                     <td class="col-name" style="text-align: left;">
-                                                        <a href="../neon-x/mailbox/message/index.html"><i class="col-name">&nbsp; &nbsp; &nbsp;${query.subject}(${siz})</i></a>
+                                                        <a><i class="col-name">&nbsp; &nbsp; &nbsp;${query.subject}(${siz})</i></a>
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${siz==0}">
                                                     <td class="col-name" style="text-align: left;">
-                                                        <a href="../neon-x/mailbox/message/index.html"><i class="col-name">&nbsp; &nbsp; &nbsp;${query.subject}</i></a>
+                                                        <a><i class="col-name">&nbsp; &nbsp; &nbsp;${query.subject}</i></a>
                                                     </td>
                                                 </c:if>
 
                                                 <td class="col-name col-options">
 
                                                     <c:if test="${query.status=='Pending'}">
-                                                        <span class="badge badge-warning">${query.status}</span>
+                                                        <span class="label label-warning">${query.status}</span>
                                                     </c:if>
                                                     <c:if test="${query.status=='Processing'}">
-                                                        <span class="badge badge-info">${query.status}</span>
+                                                        <span class="label label-primary">${query.status}</span>
                                                     </c:if>
                                                     <c:if test="${query.status=='Resolved'}">
-                                                        <span class="badge badge-success">${query.status}</span>
+                                                        <span class="label label-success">${query.status}</span>
                                                     </c:if>
                                                     <c:if test="${query.status=='NOT Resolved'}">
-                                                        <span class="badge badge-danger">${query.status}</span>
+                                                        <span class=" label label-danger">${query.status}</span>
                                                     </c:if>
                                                     <c:if test="${query.status=='Cancel'}">
-                                                        <span class="badge badge-gray">${query.status}</span>
+                                                        <span class=" label label-default">${query.status}</span>
                                                     </c:if>
 
                                                 </td>
                                                 <td>
-                                                    <button style="margin-left:auto; margin-right:auto;" id="popup_window" data-popup-target="#${stid}">View</button>
+                                                    <button class="badge btu" style="margin-left:auto; margin-right:auto;" id="popup_window" data-popup-target="#${query.id}qr" data-id="#${query.id}query" qr="detailQuery.jsp?id=${query.id}">View</button>
                                                 </td>
                                             </tr>
 
@@ -516,30 +465,31 @@
                             <div class="contact-form" id="complaint-write" >
                                 <h3 class="main-heading"><span>Send a complaint to Technician</span></h3>
                                 <div id="contact-status"></div>
-                                <form action="../sendQueryAction" method="POST">
-                                    <input type="hidden" name="username" value="${user}"/>
-                                    <p>
-                                        <label for="subject">Subject</label>
-                                        <input type="text" name="subject" class="input"  maxlength="50"/>
+                                <form action="../sendQueryAction" method="POST"  id="sendqrform">
+                                    <input class="form-control" type="hidden" name="username" value="${user}"/>
+                                    <p class="form-group">
+                                        <label for="subject" class="form-inline">Subject</label>
+                                        <input  type="text" name="subject" class="input form-control"  maxlength="50" minlength="10" class="required" required/>
                                     </p>
                                     <br/>
-                                    <p>
+                                    <p class="form-group">
                                         <label for="content">Category</label>
-                                        <select style="width: 150px" name="category" class="dropdown-menu">
+                                        <select style="width: 150px" name="category" class="dropdown-menu form-group" >
                                             <c:forEach items="${lstCategory}" var="c">
-                                                <option value="${c.id}" class="field-options">${c.name}</option>
+                                                <option value="${c.id}" class="field-options form-group">${c.name}</option>
                                             </c:forEach>
                                         </select>
                                     </p>
                                     <br/>
-                                    <p>
+                                    <p class="form-group">
                                         <label for="message">Complaint Message</label>
-                                        <textarea name="content" cols="88" rows="6" class="textarea"></textarea>
+                                        <textarea name="content" cols="88" rows="6" class="textarea form-control" class="required" required></textarea>
                                     </p>
                                     <br/>
                                     <input type="submit" value="Send Complaint " targets="result" class="submit"/>
                                     <br/><br/>  <br/>
                                 </form>
+                                    <div id="rsdata"></div>
                             </div>
                         </div>
                     </div>
@@ -566,7 +516,7 @@
         </div>
         <!-- /Container -->
         <link href="css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,800,700,400italic|PT+Serif:400,400italic"/>
+
 
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/news/style.css" rel="stylesheet" type="text/css"/>
@@ -574,65 +524,74 @@
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="stylesheet" type="text/css" href="css/reset.css"/> 
         <link id="switchyuk" rel="stylesheet" type="text/css" href="css/schemes/orange.css" />     
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="js/dataTables.bootstrap.js" type="text/javascript"></script>   
-        <script type="text/javascript" src="js/jquery.easytabs.min.js"></script>    
-        <script type="text/javascript" src="js/jquery.adipoli.min.js"></script>
-        <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
-        <script type="text/javascript" src="js/custom_1.js"></script>
-        <script type="text/javascript" src="js/jquery.cookie.js"></script>
-        <script type="text/javascript" src="js/custom.js"></script>
-        <script type="text/javascript" src="js/plugin.js"></script>
-        <script type="text/javascript" src="js/themeswitch.js"></script>
-        <script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>
-        <script type="text/javascript">
-            $(window).load(function() {
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+            <script type="text/javascript" src="js/jquery.min.js"></script>
+            <script src="js/jquery.dataTables.min.js" type="text/javascript"></script>
+            <script src="js/dataTables.bootstrap.js" type="text/javascript"></script>   
+            <script type="text/javascript" src="js/jquery.easytabs.min.js"></script>    
+            <script type="text/javascript" src="js/jquery.adipoli.min.js"></script>
+            <script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+            <script type="text/javascript" src="js/custom_1.js"></script>
+            <script type="text/javascript" src="js/jquery.cookie.js"></script>
+            <script type="text/javascript" src="js/custom.js"></script>
+            <script type="text/javascript" src="js/plugin.js"></script>
+            <script type="text/javascript" src="js/themeswitch.js"></script>
+            <script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>
+            <script src="lib/jquery.form.js" type="text/javascript"></script>
+            <script src="lib/jquery.mockjax.js" type="text/javascript"></script>
+            <script src="dist/jquery.validate.min.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                $(window).load(function() {
 
-                jQuery(document).ready(function($) {
-
-                    $('[data-popup-target]').click(function() {
-                        $('#resume').addClass('overlay');
-                        var activePopup = $(this).attr('data-popup-target');
-                        $(activePopup).addClass('visible');
-
-                    });
-
-                    $(document).keyup(function(e) {
-                        if (e.keyCode == 27 && $('body').hasClass('overlay')) {
+                    jQuery(document).ready(function($) {
+                        var xc = $('[data-popup-target]');
+                        xc.click(function() {
+                            $('#container').addClass('overlay');
+                            var activePopup = $(this).attr('data-popup-target');
+                            var ad = $(this).attr('data-id');
+                            $(ad).attr('src', $(this).attr('qr'));
+                            $(ad).addClass('datk');
+                            $(activePopup).addClass('visible');
+                        });
+                        $(document).keyup(function(e) {
+                            if (e.keyCode == 27 && $('body').hasClass('overlay')) {
+                                clearPopup();
+                            }
+                        });
+                        $('.popup-exit').click(function() {
                             clearPopup();
+                        });
+                        $('.popup-overlay').click(function() {
+                            clearPopup();
+                        });
+                        function clearPopup() {
+
+                            var ad = $('.datk');
+                            $(ad).attr('src', '');
+                            $('.popup.visible').addClass('transitioning').removeClass('visible');
+                            $('#container').removeClass('overlay');
+                            setTimeout(function() {
+                                $('.popup').removeClass('transitioning');
+                            }, 200);
                         }
+                        ;
+                        var v = jQuery("#sendqrform").validate(
+                        );
+
+
+
                     });
-
-                    $('.popup-exit').click(function() {
-                        clearPopup();
-
+                    var tabdat,
+                            tabdat = $('#dattable').dataTable({
+                        "aLengthMenu": [[5, 7, 10, 20], [5, 7, 10, 20]],
+                        "iDisplayLength": 7
                     });
-
-                    $('.popup-overlay').click(function() {
-                        clearPopup();
-                    });
-
-                    function clearPopup() {
-                        $('.popup.visible').addClass('transitioning').removeClass('visible');
-                        $('#resume').removeClass('overlay');
-
-                        setTimeout(function() {
-                            $('.popup').removeClass('transitioning');
-                        }, 200);
-                    }
+                    tabdat.fnSort([[0, 'desc']]);
 
 
                 });
-                var tabdat = $('#dattable').dataTable({
-                    "order": [[0, "desc"]],
-                    "aLengthMenu": [[5,7,10,20], [5,7,10,20]],
-                    "iDisplayLength": 7
-                });
 
-            });
-
-        </script>
+            </script>
 
 
 

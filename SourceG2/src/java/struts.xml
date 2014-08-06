@@ -8,18 +8,29 @@
         <action name="loginAction" class="MyAction.loginAction">
             <result>homered.jsp</result>
             <result name="ADMIN">red.jsp</result>
-            <result name="FAILED">login.html</result>
+            <result name="FAILED">homered.jsp</result>
         </action>
         <action name="sendQueryAction" class="MyAction.sendQueryAction">
             <result name="success">sendCP.jsp</result>
      
         </action>
         <action name="sendReplyAction" class="MyAction.sendReplyAction">
-            <result>HomePage.jsp?index=1</result>
+            <result>sendreply.jsp</result>
         </action>
-        <action name="addNewsAction" class="MyAction.addNewsAction">
-            <result>Admin/AddNews.jsp</result>
+      <action name="addNewsAction" class="MyAction.addNewsAction">
+            <result>Admin/ManagerNews.jsp</result>
         </action>
+        <action name="editNewsAction" class="MyAction.editNewsAction">
+            <result>Admin/ManagerNews.jsp</result>
+        </action>
+        <action name="deleteNewsAction" class="MyAction.deleteNewsAction">
+            <result>Admin/ManagerNews.jsp</result>
+        </action>
+        <action name="ratingNewsAction" class="MyAction.ratingNewsAction">
+            <result>rateS.jsp</result>
+        </action>
+       
+        
     </package>
     
 </struts>

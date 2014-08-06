@@ -37,134 +37,7 @@ import java.util.logging.Logger;
  */
 public class DBFunctionNews {
 
-     private static final String[] tensNames = {
-    "",
-    "ten",
-    "twenty",
-    "thirty",
-    "forty",
-    "fifty",
-    "sixty",
-    "seventy",
-    "eighty",
-    "ninety"
-  };
-
-  private static final String[] numNames = {
-    "",
-    "one",
-    "two",
-    "three",
-    "four",
-    "five",
-    "six",
-    "seven",
-    "eight",
-    "nine",
-    "ten",
-    "eleven",
-    "twelve",
-    "thirteen",
-    "fourteen",
-    "fifteen",
-    "sixteen",
-    "seventeen",
-    "eighteen",
-    "nineteen"
-  };
-
-
-
-  private static String convertLessThanOneThousand(int number) {
-    String soFar;
-
-    if (number % 100 < 20){
-      soFar = numNames[number % 100];
-      number /= 100;
-    }
-    else {
-      soFar = numNames[number % 10];
-      number /= 10;
-
-      soFar = tensNames[number % 10] + soFar;
-      number /= 10;
-    }
-    if (number == 0) return soFar;
-    return numNames[number] + "hundred" + soFar;
-  }
-
-
-  public  String convertToString(long number) {
-    // 0 to 999 999 999 999
-    if (number == 0) { return "zero"; }
-
-    String snumber = Long.toString(number);
-
-    // pad with "0"
-    String mask = "000000000000";
-    DecimalFormat df = new DecimalFormat(mask);
-    snumber = df.format(number);
-
-    // XXXnnnnnnnnn
-    int billions = Integer.parseInt(snumber.substring(0,3));
-    // nnnXXXnnnnnn
-    int millions  = Integer.parseInt(snumber.substring(3,6));
-    // nnnnnnXXXnnn
-    int hundredThousands = Integer.parseInt(snumber.substring(6,9));
-    // nnnnnnnnnXXX
-    int thousands = Integer.parseInt(snumber.substring(9,12));
-
-    String tradBillions;
-    switch (billions) {
-    case 0:
-      tradBillions = "";
-      break;
-    case 1 :
-      tradBillions = convertLessThanOneThousand(billions)
-      + " billion";
-      break;
-    default :
-      tradBillions = convertLessThanOneThousand(billions)
-      + " billion";
-    }
-    String result =  tradBillions;
-
-    String tradMillions;
-    switch (millions) {
-    case 0:
-      tradMillions = "";
-      break;
-    case 1 :
-      tradMillions = convertLessThanOneThousand(millions)
-         + " million";
-      break;
-    default :
-      tradMillions = convertLessThanOneThousand(millions)
-         + " million";
-    }
-    result =  result + tradMillions;
-
-    String tradHundredThousands;
-    switch (hundredThousands) {
-    case 0:
-      tradHundredThousands = "";
-      break;
-    case 1 :
-      tradHundredThousands = "onethousand";
-      break;
-    default :
-      tradHundredThousands = convertLessThanOneThousand(hundredThousands)
-         + "thousand";
-    }
-    result =  result + tradHundredThousands;
-
-    String tradThousand;
-    tradThousand = convertLessThanOneThousand(thousands);
-    result =  result + tradThousand;
-
-    // remove extra spaces!
-    return result;
-  }
+   
 
      public Account getAccDetails(String user, int role) {
         Account acc = null;
@@ -229,54 +102,37 @@ public class DBFunctionNews {
     
 
 
-    //get Top 5 News
-    public Vector<News> getNewsTop5() {
-        Vector<News> vectorNews = new Vector<>();
-        String sql = "SELECT TOP 5 * FROM tbl_Article ORDER BY _id DESC";
-
-        try {
-            ResultSet rs = getConnection().createStatement().executeQuery(sql);
-            while (rs.next())
-            {
-                News temp = new News(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
-                String[] ss=rs.getDate("_dateofpost").toString().split("-");
-                CustomDate date=new CustomDate();
-                date.setYear(ss[0]);
-                date.setMonth(getMonthForInt(Integer.parseInt(ss[1])-1));
-                date.setDate(ss[2]);
-                temp.setcDate(date);
-                System.out.println(""+date);
-                
-                
-                vectorNews.add(temp);
-            }
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBFunctionNews.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return vectorNews;
-    }
-    
-    //get news data
-    public Vector<News> getNews(String type, String content) {
+   public Vector<News> getNews(String type, String content) {
         Vector<News> vectorNews = new Vector<>();
         String query = "";
         switch(type) {
-            case "Top5": query = "SELECT TOP 5 * FROM tbl_Article ORDER BY _id DESC";
+            case "Top5": query = "SELECT TOP 5 * FROM tbl_Article LEFT JOIN "
+                    + "(SELECT SUM(_rate)/COUNT(*) AS \"STAR\",_articleid "
+                    + "FROM tbl_ArticleRate  GROUP BY tbl_ArticleRate._articleid) tbl_ArticleRate "
+                    + "ON tbl_Article._id = tbl_ArticleRate._articleid ORDER BY _id DESC";
                 break;
-            case "All": query = "SELECT * FROM tbl_Article ORDER BY _id DESC";
+            case "All": query = "SELECT * FROM tbl_Article LEFT JOIN "
+                    + "(SELECT SUM(_rate)/COUNT(*) AS \"STAR\",_articleid "
+                    + "FROM tbl_ArticleRate  GROUP BY tbl_ArticleRate._articleid) tbl_ArticleRate "
+                    + "ON tbl_Article._id = tbl_ArticleRate._articleid ORDER BY _id DESC";
                 break;
-            case "Date": query = "SELECT * FROM tbl_Article WHERE CONVERT(varchar(10),_dateofpost,102) LIKE '"+content+"%' ORDER BY _id DESC";
+            case "Date": query = "SELECT * FROM tbl_Article LEFT JOIN "
+                    + "(SELECT SUM(_rate)/COUNT(*) AS \"STAR\",_articleid "
+                    + "FROM tbl_ArticleRate  GROUP BY tbl_ArticleRate._articleid) tbl_ArticleRate "
+                    + "ON tbl_Article._id = tbl_ArticleRate._articleid "
+                    + "WHERE CONVERT(varchar(10),_dateofpost,102) LIKE '"+content+"%' ORDER BY _id DESC";
                 break;
-            default: query = "SELECT * FROM tbl_Article ORDER BY _id DESC";
+            default: query = "SELECT * FROM tbl_Article LEFT JOIN "
+                    + "(SELECT SUM(_rate)/COUNT(*) AS \"STAR\",_articleid "
+                    + "FROM tbl_ArticleRate  GROUP BY tbl_ArticleRate._articleid) tbl_ArticleRate "
+                    + "ON tbl_Article._id = tbl_ArticleRate._articleid ORDER BY _id DESC";
                 break;
         }
         try {
             ResultSet rs = getConnection().createStatement().executeQuery(query);
             while (rs.next())
             {
-                News temp = new News(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
+                News temp = new News(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getInt(8));
                  String[] ss=rs.getDate("_dateofpost").toString().split("-");
                 CustomDate date=new CustomDate();
                 date.setYear(ss[0]);
@@ -295,14 +151,18 @@ public class DBFunctionNews {
     //get news by id
     public News getNewsByID(int id) {
         News temp = null;
-        String query = "SELECT * FROM tbl_Article WHERE _id = ?";
+        String query = "SELECT * FROM tbl_Article LEFT JOIN "
+                    + "(SELECT SUM(_rate)/COUNT(*) AS \"STAR\",_articleid "
+                    + "FROM tbl_ArticleRate  GROUP BY tbl_ArticleRate._articleid) tbl_ArticleRate "
+                    + "ON tbl_Article._id = tbl_ArticleRate._articleid "
+                    + "WHERE _id = ? ORDER BY _id DESC";
         try {
             PreparedStatement ps = getConnection().prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next())
             {
-                temp = new News(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
+                temp = new News(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getInt(8));
                 String[] ss=rs.getDate("_dateofpost").toString().split("-");
                 CustomDate date=new CustomDate();
                 date.setYear(ss[0]);
@@ -318,7 +178,8 @@ public class DBFunctionNews {
         
         return temp;
     }
-
+    
+    //insert query
     public boolean addNews(String title, String content, String summary, String thumbnail, String username) {
         int result = 0;
         try {
@@ -338,6 +199,103 @@ public class DBFunctionNews {
         }
         return result > 0;
     }
+    
+    public boolean editNews(String title, String content, String summary, String thumbnail, int id) {
+        int result = 0;
+        try {
+            Connection conn = getConnection();
+            String sql;
+            PreparedStatement prst;
+            if (thumbnail == null) {
+                sql = "UPDATE tbl_Article SET _title=?, _content=?, _summary=? WHERE _id=?";
+                prst = conn.prepareStatement(sql);
+                prst.setString(1, title);
+                prst.setString(2, content);
+                prst.setString(3, summary);
+                prst.setInt(4, id);
+            } else {
+                sql = "UPDATE tbl_Article SET _title=?, _content=?, _summary=?, _thumbnail=? WHERE _id=?";
+                prst = conn.prepareStatement(sql);
+                prst.setString(1, title);
+                prst.setString(2, content);
+                prst.setString(3, summary);
+                prst.setString(4, thumbnail);
+                prst.setInt(5, id);
+            }
+            result = prst.executeUpdate();
+            prst.close();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunctionNews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result > 0;
+    }
+    
+    public boolean deleteNews(int id) {
+        int result = 0;
+        try {
+            Connection conn = getConnection();
+            String sql = "DELETE FROM tbl_Article WHERE _id=?";
+            PreparedStatement prst = conn.prepareStatement(sql);
+            prst.setInt(1, id);
+            result = prst.executeUpdate();
+            prst.close();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunctionNews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result > 0;
+    }
+    
+    //rating news
+    public boolean ratingNews(int id, String username, int rate) {
+        int result = 0;
+        Connection conn = getConnection();
+        int i = checkRatingNews(id, username);
+        String query;
+        PreparedStatement prst;
+        try {
+            if (i > 0) {
+                query = "UPDATE tbl_ArticleRate SET _rate=? WHERE _id=?";
+                prst = conn.prepareStatement(query);
+                prst.setInt(1, rate);
+                prst.setInt(2, i);
+            } else {
+                query = "INSERT INTO tbl_ArticleRate VALUES (?,?,?)";
+                prst = conn.prepareStatement(query);
+                prst.setInt(1, id);
+                prst.setString(2, username);
+                prst.setInt(3, rate);
+            }
+            result = prst.executeUpdate();
+            prst.close();
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunctionNews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result > 0;
+    }
+    
+    //check rating
+    public int checkRatingNews(int id, String username) {
+        int result = 0;
+        Connection conn = getConnection();
+        String query = "SELECT * FROM tbl_ArticleRate WHERE _articleid=? AND _username=?";
+        try {
+            PreparedStatement ps = getConnection().prepareStatement(query);
+            ps.setInt(1, id);
+            ps.setString(2, username);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next())
+            {
+                result = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBFunctionNews.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
     private Connection getConnection() {
         Connection con = null;
 

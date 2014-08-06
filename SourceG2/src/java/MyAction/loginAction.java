@@ -7,10 +7,11 @@
 package MyAction;
 
 import DataAccess.DBFunction;
-
+import javax.servlet.http.HttpSession;
 import java.util.Map;
-import org.apache.struts2.interceptor.SessionAware;
 
+import org.apache.struts2.interceptor.SessionAware;
+import org.apache.struts2.dispatcher.SessionMap;  
 import com.opensymphony.xwork2.ActionSupport;
 import javax.swing.ActionMap;
 
@@ -21,7 +22,7 @@ import javax.swing.ActionMap;
 public class loginAction extends ActionSupport implements SessionAware{
     String user;
     String pass;
-    Map session;
+   SessionMap<String,String> session;
 
     public Map getSession() {
         return session;
@@ -29,7 +30,7 @@ public class loginAction extends ActionSupport implements SessionAware{
 
     @Override
     public void setSession(Map session) {
-        this.session = session;
+        this.session = (SessionMap)session;
     }
     
     public String getUser() {
@@ -55,11 +56,11 @@ public class loginAction extends ActionSupport implements SessionAware{
     public String execute() throws Exception {
        DBFunction function = new DBFunction();
         if (function.checkLogin(user, pass, 1)) {
-            getSession().put("user", user);
+            session.put("user", user);
             addActionMessage("Login Success");
             return SUCCESS;
         } else if(function.checkLogin(user, pass, 0)) {
-            getSession().put("admin", user);
+            session.put("admin", user);
             addActionMessage("Login Success");
             return "ADMIN";
         } else {
@@ -70,7 +71,7 @@ public class loginAction extends ActionSupport implements SessionAware{
            return "FAILED";
        }
     }
-
+    
    
     
 }

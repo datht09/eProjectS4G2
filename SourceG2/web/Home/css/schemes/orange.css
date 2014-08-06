@@ -84,3 +84,63 @@ input[type="text"], input[type="email"], input[type="password"], textarea{
 .overall{
 	background:#f39c12;
 }
+.label {
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em
+}
+a.label:focus, a.label:hover {
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer
+}
+.label:empty {
+	display: none
+}
+.btn .label {
+	position: relative;
+	top: -1px
+}
+.label-default {
+	background-color: #999
+}
+.label-default[href]:focus, .label-default[href]:hover {
+	background-color: gray
+}
+.label-primary {
+	background-color: #3276b1
+}
+.label-primary[href]:focus, .label-primary[href]:hover {
+	background-color: #275b89
+}
+.label-success {
+	background-color: #739e73
+}
+.label-success[href]:focus, .label-success[href]:hover {
+	background-color: #5b835b
+}
+.label-info {
+	background-color: #57889c
+}
+.label-info[href]:focus, .label-info[href]:hover {
+	background-color: #456b7b
+}
+.label-warning {
+	background-color: #c79121
+}
+.label-warning[href]:focus, .label-warning[href]:hover {
+	background-color: #9b711a
+}
+.label-danger {
+	background-color: #a90329
+}
+.label-danger[href]:focus, .label-danger[href]:hover {
+	background-color: #77021d
+}

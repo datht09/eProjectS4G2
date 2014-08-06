@@ -1,3 +1,5 @@
+
+
 .chat-body {
 	background: #FAFAFA;
 	background: -moz-linear-gradient(top, #fafafa 0, #fff 100%);
@@ -254,7 +256,9 @@ img.online {
     white-space: nowrap;
     text-align: center;
     background-color: #999999;
+    
     border-radius: 10px;
+    
     background-color: #ebebeb;
     color: #373e4a;
 }
@@ -308,7 +312,7 @@ a.badge:focus {
 /* Base styles	 */
 /*-------------------------------------------------------*/
 body {
-    background-image:url(../images/bg3.png);
+    background-image:url(../images/bg7.png);
   
     margin: 0px;
     padding: 0px;
@@ -430,6 +434,18 @@ div.top {
     width:30px;
     height:30px;
     background:#222 url('../images/social_twitter.png') no-repeat 5px 5px;
+}
+.social-rs {
+    float:left;
+    width:30px;
+    height:30px;
+    background:#222 url('../images/icon_refresh.png') no-repeat 5px 5px;
+}
+.social-logout {
+    float:left;
+    width:30px;
+    height:30px;
+    background:#222 url('../images/logout.png') no-repeat 5px 5px;
 }
 .social-googleplus {
     float:left;
@@ -1212,21 +1228,10 @@ div.footer .copyright {
 }
 
 #popup_window{
- margin-left:10px;
-    min-width:10px;
-    padding: 3px 7px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #ffffff;
-    line-height:1;
+ 
    
-    white-space: nowrap;
-    text-align: center;
-    background-color: #999999;
-    border-radius: 10px;
-    background-color: #ebebeb;
-    color: #373e4a;
-    font-weight: bolder;
+   
+  
     cursor: pointer;
 }
 .popup-overlay {
@@ -1269,8 +1274,8 @@ div.footer .copyright {
  
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f7f7f7', GradientType=0);
     opacity: 0;
-    min-height: 400px;
-   max-height: 560px;
+    min-height: 540px;
+   max-height: 650px;
     width: 120%;
     margin-left: -64%;
     padding: 10px;

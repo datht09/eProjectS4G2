@@ -63,7 +63,7 @@ a{text-decoration:none;}
 ----------------------------------------------------------------------------------------------------*/
 
 /* Import dulu */
-@import url(http://fonts.googleapis.com/css?family=Roboto);
+
 
 
 h1, h2, h3, h4, h5, h6{
@@ -1197,8 +1197,8 @@ img{max-width:100%!important;}
 	top: 45%;
 	display: inline-block;
 	padding: 10px 20px;
-	background: white;
-	color: #2a2a2a;
+        background:#ff6600;
+	color: #fff;
 	visibility: hidden;
 	z-index: 100;
 	webkit-transition: all 0.30s;

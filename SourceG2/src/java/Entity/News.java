@@ -18,7 +18,16 @@ public class News {
     private String thumbnail;
     private String username;
     private String dateOfPost;
+    private int star;
     private CustomDate cDate;
+
+    public int getStar() {
+        return star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
+    }
 
     public CustomDate getcDate() {
         return cDate;
@@ -86,7 +95,7 @@ public class News {
         this.dateOfPost = dateOfPost;
     }
 
-    public News(int id, String title, String content, String summary, String thumbnail, String username, String dateOfPost) {
+    public News(int id, String title, String content, String summary, String thumbnail, String username, String dateOfPost, int star) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -94,6 +103,7 @@ public class News {
         this.thumbnail = thumbnail;
         this.username = username;
         this.dateOfPost = dateOfPost;
+        this.star = star;
     }
     
 }

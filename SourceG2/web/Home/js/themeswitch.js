@@ -31,17 +31,6 @@ $(document).ready(function() {
 		});
 	});
 	
-	
-	/* LAYOUT */
-	$("#layout-switcher").on('change', function() {
-		if($(this).val()=='boxed'){
-			$('.parentcontainer').addClass('boxed');
-			createCookie('boxed', 'true', 1);
-		}else{
-			$('.parentcontainer').removeClass('boxed');
-			eraseCookie('boxed', 'true', 1);
-		}
-	});
 	if (readCookie('boxed') === 'true') {
 		$('.parentcontainer').addClass('boxed');
 		$("#layout-switcher option[value=boxed]").prop("selected", "selected");
