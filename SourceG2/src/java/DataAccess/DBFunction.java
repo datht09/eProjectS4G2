@@ -84,12 +84,12 @@ public class DBFunction {
     }
 
     //get Account details
+     
     public Account getAccDetails(String user, int role) {
         Account acc = null;
         String sql = "select * from tbl_AccountInfo where _username=?";
 
         try {
-
             PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
             preparedStatement.setString(1, user);
             ResultSet rs = preparedStatement.executeQuery();
@@ -220,7 +220,7 @@ public class DBFunction {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String user = "sa";
-            String pass = "123456";
+            String pass = "123";
             String sql = "jdbc:sqlserver://localhost:1433;databaseName=FIS";
             con = DriverManager.getConnection(sql, user, pass);
         } catch (SQLException ex) {

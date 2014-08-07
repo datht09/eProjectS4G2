@@ -302,7 +302,7 @@ public class DBFunctionNews {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String user = "sa";
-            String pass = "123456";
+            String pass = "123";
             String sql = "jdbc:sqlserver://localhost:1433;databaseName=FIS";
             con = DriverManager.getConnection(sql, user, pass);
         } catch (SQLException ex) {

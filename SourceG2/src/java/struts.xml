@@ -30,7 +30,10 @@
         <action name="ratingNewsAction" class="MyAction.ratingNewsAction">
             <result>rateS.jsp</result>
         </action>
-       
+        <action name="editUser" class="MyAction.editUser">
+            <result>ManagerAcc.jsp</result>
+            <result name="FAILED">ManagerAcc.jsp</result>
+        </action>
         
     </package>
     

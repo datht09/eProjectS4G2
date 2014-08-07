@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,7 +42,7 @@ public class Admin {
             preparedStatement.close();
 
         } catch (SQLException ex) {
-            
+
         }
 
         return lst;
@@ -63,7 +65,7 @@ public class Admin {
             preparedStatement.close();
 
         } catch (SQLException ex) {
-            
+
         }
 
         return lst;
@@ -71,11 +73,11 @@ public class Admin {
 
     public ArrayList<QueryAdmin> getQueries(int i, Map pram, String start, String end) {
         ArrayList<QueryAdmin> arr = new ArrayList<>();
-        String[] category=null;
-         String[] department=null;
-        if(pram!=null){
-        category = (String[]) pram.get("category");
-      department = (String[]) pram.get("department");
+        String[] category = null;
+        String[] department = null;
+        if (pram != null) {
+            category = (String[]) pram.get("category");
+            department = (String[]) pram.get("department");
         }
         String sql = "";
         if (i == 100) {
@@ -91,38 +93,36 @@ public class Admin {
                     for (String de : department) {
                         sql = sql + " or _departmentID like '" + de + "'";
                     }
-                }else{
-                    if(category!=null&&department!=null){
-                     sql = sql + " where _departmentID like '" + department[0] + "'";
-                    for (String de : department) {
-                        sql = sql + " or _departmentID like '" + de + "'";
-                    }
-                    String[] temp=sql.split(" or ");
-                    System.out.println("sql1: "+sql);
-                        
-                    sql="";
-                  
-                        String ss="";
-                        int k=0;
-                        for(int j = 0;j<temp.length;j++){
-                           
-                            if(j==0){
-                            ss=ss+ temp[j]+" and _category like '"+category[k]+"' or ";
-                            }
-                            else{
-                              for(k=0;k<category.length;k++){
-                          
-                            ss=ss+ temp[j]+" and _category like '"+category[k]+"' or ";
-                            
-                            
-                              }
-                            }
-                             
+                } else {
+                    if (category != null && department != null) {
+                        sql = sql + " where _departmentID like '" + department[0] + "'";
+                        for (String de : department) {
+                            sql = sql + " or _departmentID like '" + de + "'";
                         }
-                         sql=ss;
-                        sql= sql.substring(0,sql.length()-3);
-                    
-                        System.out.println("sql2: "+sql);
+                        String[] temp = sql.split(" or ");
+                        System.out.println("sql1: " + sql);
+
+                        sql = "";
+
+                        String ss = "";
+                        int k = 0;
+                        for (int j = 0; j < temp.length; j++) {
+
+                            if (j == 0) {
+                                ss = ss + temp[j] + " and _category like '" + category[k] + "' or ";
+                            } else {
+                                for (k = 0; k < category.length; k++) {
+
+                                    ss = ss + temp[j] + " and _category like '" + category[k] + "' or ";
+
+                                }
+                            }
+
+                        }
+                        sql = ss;
+                        sql = sql.substring(0, sql.length() - 3);
+
+                        System.out.println("sql2: " + sql);
                     }
                 }
 
@@ -139,40 +139,38 @@ public class Admin {
                 if (category == null && department != null) {
                     sql = sql + " and _departmentID like '" + department[0] + "'";
                     for (String de : department) {
-                        sql = sql + " or _departmentID like '" + de + "'"+ " and _status=" + i;
+                        sql = sql + " or _departmentID like '" + de + "'" + " and _status=" + i;
                     }
-                }else{
-                    if(category!=null&&department!=null){
-                     sql = sql + " and _departmentID like '" + department[0] + "'";
-                    for (String de : department) {
-                        sql = sql + " or _departmentID like '" + de + "'";
-                    }
-                    String[] temp=sql.split(" or ");
-                    System.out.println("sql1: "+sql);
-                        
-                    sql="";
-                  
-                        String ss="";
-                        int k=0;
-                        for(int j = 0;j<temp.length;j++){
-                           
-                            if(j==0){
-                            ss=ss+ temp[j]+" and _category like '"+category[k]+"' or ";
-                            }
-                            else{
-                              for(k=0;k<category.length;k++){
-                          
-                            ss=ss+ temp[j]+" and _category like '"+category[k]+"' and _status=" + i+" or ";
-                            
-                            
-                              }
-                            }
-                             
+                } else {
+                    if (category != null && department != null) {
+                        sql = sql + " and _departmentID like '" + department[0] + "'";
+                        for (String de : department) {
+                            sql = sql + " or _departmentID like '" + de + "'";
                         }
-                         sql=ss;
-                        sql= sql.substring(0,sql.length()-3);
-                    
-                        System.out.println("sql2: "+sql);
+                        String[] temp = sql.split(" or ");
+                        System.out.println("sql1: " + sql);
+
+                        sql = "";
+
+                        String ss = "";
+                        int k = 0;
+                        for (int j = 0; j < temp.length; j++) {
+
+                            if (j == 0) {
+                                ss = ss + temp[j] + " and _category like '" + category[k] + "' or ";
+                            } else {
+                                for (k = 0; k < category.length; k++) {
+
+                                    ss = ss + temp[j] + " and _category like '" + category[k] + "' and _status=" + i + " or ";
+
+                                }
+                            }
+
+                        }
+                        sql = ss;
+                        sql = sql.substring(0, sql.length() - 3);
+
+                        System.out.println("sql2: " + sql);
                     }
                 }
             }
@@ -196,9 +194,51 @@ public class Admin {
             }
             pre.close();
         } catch (SQLException ex) {
-          
+
         }
         return arr;
+    }
+
+    public ArrayList<Account> getAccount() {
+        ArrayList<Account> list = new ArrayList<Account>();
+        String sql = "SELECT * FROM tbl_AccountInfo";
+        try {
+            ResultSet rs = getConnection().createStatement().executeQuery(sql);
+            while (rs.next()) {
+                Account acc = new Account();
+                acc.setUsername(rs.getString("_username"));
+                acc.setDepartmentid(getDepartmentName(rs.getString("_departmentID")));
+                acc.setFullname(rs.getString("_fullname"));                
+                acc.setEmail(rs.getString("_email"));
+                acc.setImageurl(rs.getString("_image"));
+                acc.setPhone(rs.getString("_phonenumber"));
+                acc.setAddress(rs.getString("_address"));                                               
+                list.add(acc);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+
+        }
+        return list;
+    }
+    //edit Account
+    
+    public boolean editAccount(String username,String fullname,String email,String imageurl,String phone,String address) {
+        int result=0;
+        String sql="UPDATE tbl_AccountInfo SET _fullname=?,_email=?,_image=?,_phonenumber=?,_address=? WHERE _username=?";
+        try {
+            PreparedStatement prst=getConnection().prepareStatement(sql);            
+            prst.setString(1, fullname);
+            prst.setString(2, email);
+            prst.setString(3, imageurl);
+            prst.setString(4, phone);
+            prst.setString(5, address);
+            result=prst.executeUpdate();
+            prst.close();
+        } catch (SQLException ex) {
+            
+        }
+        return result>0;
     }
 
     public Account getAccDetails(String user, int role) {
@@ -225,7 +265,7 @@ public class Admin {
             preparedStatement.close();
 
         } catch (SQLException ex) {
-            
+
         }
 
         return acc;
@@ -246,7 +286,7 @@ public class Admin {
             }
             preparedStatement.close();
         } catch (SQLException ex) {
-           
+
         }
 
         return result;
@@ -267,7 +307,7 @@ public class Admin {
             }
             pre.close();
         } catch (SQLException ex) {
-            
+
         }
 
         return i;
@@ -288,7 +328,7 @@ public class Admin {
             }
             pre.close();
         } catch (SQLException ex) {
-         
+
         }
 
         return i;
@@ -300,11 +340,11 @@ public class Admin {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String user = "sa";
-            String pass = "123456";
+            String pass = "123";
             String sql = "jdbc:sqlserver://localhost:1433;databaseName=FIS";
             con = DriverManager.getConnection(sql, user, pass);
         } catch (SQLException | ClassNotFoundException ex) {
-         
+
         }
         return con;
     }
