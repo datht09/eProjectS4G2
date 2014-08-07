@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page  pageEncoding="UTF-8"%>
 <jsp:useBean id="mrBean" scope="session" class="DataAccess.DBFunction"/>
 <jsp:useBean id="newsBean" scope="session" class="DataAccess.DBFunctionNews"/>
 <jsp:useBean id="autoBean" scope="session" class="DataAccess.AutoGenerate"/>
@@ -19,7 +20,7 @@
     <body>
         <c:set var="user" value="${sessionScope.user}"/>
         <c:if test="${user==null}">
-            <c:redirect url="../index.html"/>
+            <c:redirect url="../login.html"/>
         </c:if>
         <c:set var="us" value="${mrBean.getAccDetails(user,1)}"/>
         <c:set var="lstCategory" value="${mrBean.listCategory}"/>
@@ -71,6 +72,7 @@
                     <li><a href="#" class="social-twitter"></a></li>
                     <li><a href="#" class="social-in"></a></li>
                     <li><a href="#" class="social-googleplus"></a></li>
+                    
                     <li><a href="../logoutAction" class="social-logout"></a></li>
                 </ul>
                 <!-- /Social Icons -->
@@ -98,7 +100,7 @@
                         <li><label>Address</label><span>${us.address}</span></li>
                         <li><label>Email</label><span>${us.email}</span></li>
                         <li><label>Phone</label><span>${us.phone}</span></li>
-
+                    
                     </ul>
                     <!-- /Personal info section -->
                 </div>        
@@ -308,7 +310,7 @@
 
                     <div class="skills-section">
                         <h1 style="font-weight: bolder">TOP 3</h1>
-                        <c:forEach begin="2" end="5" var="n" items="${newsBean.getNews('Top5','')}">
+                        <c:forEach begin="0" end="2" var="n" items="${newsBean.getNews('Top5','')}">
                             <!-- Skills -->
                             <h3 class="main-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="links">${n.cDate}</a><span>${n.title}</span></h3> 
                             <ul class="skills">
@@ -489,7 +491,7 @@
                                     <input type="submit" value="Send Complaint " targets="result" class="submit"/>
                                     <br/><br/>  <br/>
                                 </form>
-                                    <div id="rsdata"></div>
+                                <div id="rsdata"></div>
                             </div>
                         </div>
                     </div>
@@ -509,7 +511,7 @@
 
             <!-- Footer -->
             <div class="footer">
-                <div class="copyright">Copyright © 2014 G2 FPT International School</div>
+                <div class="copyright">Copyright Â© 2014 G2 FPT International School</div>
             </div>
             <!-- /Footer --> 
 
@@ -576,7 +578,7 @@
                         }
                         ;
                         var v = jQuery("#sendqrform").validate(
-                        );
+                                );
 
 
 

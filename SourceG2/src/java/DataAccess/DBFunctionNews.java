@@ -305,9 +305,7 @@ public class DBFunctionNews {
             String pass = "123456";
             String sql = "jdbc:sqlserver://localhost:1433;databaseName=FIS";
             con = DriverManager.getConnection(sql, user, pass);
-        } catch (SQLException ex) {
-            Logger.getLogger(DBFunctionNews.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DBFunctionNews.class.getName()).log(Level.SEVERE, null, ex);
         }
         return con;
