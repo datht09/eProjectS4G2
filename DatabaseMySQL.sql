@@ -15,7 +15,7 @@ _id varchar(10) primary key,
 _name nvarchar(20) not null,
 _des nvarchar(50) null
 );
-
+insert into tbl_Department values('5','test','null')
 
 create table tbl_Account
 (
@@ -23,6 +23,8 @@ _username varchar(20) primary key,
 _password varchar(20) not null,
 _role int not null /* 0=admin, 1=Employee, 2=Technician*/
 );
+select*from tbl_Account
+insert into tbl_Account values('user','123',1)
 create table tbl_AccountInfo
 (
 _username varchar(20),
@@ -36,6 +38,9 @@ _address nvarchar(200),
   foreign key (_departmentID) references tbl_Department(_id),
 primary key(_username)
 );
+
+insert into tbl_AccountInfo values('user','5','Nguyen Van A','ABC@.com','null','12345799','Hoang Mai')
+select*from tbl_AccountInfo
 create table tbl_QueryCategory
 (
 _id varchar(10) primary key,

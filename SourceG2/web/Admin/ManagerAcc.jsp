@@ -138,7 +138,6 @@
                             <li><a class="ajax-link" href="index.jsp"><i class="icon-home"></i><span class="hidden-tablet"> Dashboard</span></a></li>
 
                             <li><a class="ajax-link" href="AddNews.jsp"><i class="icon-edit"></i><span class="hidden-tablet"> Add News</span></a></li>
-                            
                             <li><a class="ajax-link" href="ManagerAcc.jsp"><i class="icon-home"></i><span class="hidden-tablet"> Manager User</span></a></li>
                         </ul>
                         <label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
@@ -208,8 +207,6 @@
                             <span class="notification red">${adBean1.getNewTotal(4)}</span>
                         </a>
                     </div>
-
-
                     <div class="row-fluid sortable">		
                         <div class="box span12">
                             <div class="box-header well" data-original-title>
@@ -230,148 +227,44 @@
                             </div>
 
 
-                            <div class="box-content">
-                                <form method="get" action="index.jsp" >
-                                    <div class="control-group">
-
-                                        <div class="controls">
-                                            <div style="float: left;">
-                                                Department:
-                                                <br/>
-                                                <select id="selectError1"  style="width:180px;" name="department" multiple data-rel="chosen">
-                                                    <c:forEach var="de" items="${adBean1.listDepartment}">
-                                                        <c:if test= "${not empty param.department}">
-                                                            <c:forEach var="paramde" items="${paramValues.department}">
-                                                                <c:if test="${paramde==de.id}">
-                                                                    <option value="${de.id}" selected>${de.name}</option>
-                                                                </c:if>
-                                                                <c:if test="${paramde!=cate.id}">
-                                                                    <option value="${de.id}">${de.name}</option>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${empty paramValues.department}">
-                                                            <option value="${de.id}">${de.name}</option>
-                                                        </c:if> 
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-                                            <div style="float: left; margin-left:20px;">
-                                                Category: <br/>
-                                                <select id="selectError2" name="category" style="width:200px;" multiple data-rel="chosen">
-                                                    <c:forEach var="cate" items="${adBean1.listCategory}">
-                                                        <c:if test= "${not empty param.category}">
-                                                            <c:forEach var="paramcate" items="${paramValues.category}">
-                                                                <c:if test="${paramcate==cate.id}">
-                                                                    <option value="${cate.id}" selected>${cate.name}</option>
-                                                                </c:if>
-                                                                <c:if test="${paramcate!=cate.id}">
-                                                                    <option value="${cate.id}">${cate.name}</option>
-                                                                </c:if>
-
-                                                            </c:forEach>
-                                                        </c:if>
-                                                        <c:if test="${empty param.category}">
-                                                            <option value="${cate.id}">${cate.name}</option>
-                                                        </c:if> 
-                                                    </c:forEach>
-
-                                                </select>
-
-                                            </div>
-                                            <div style="float: left; margin-left:20px;">
-                                                Lodging Start:<br/>
-                                                <input type="text" class="input-small datepicker" id="date01" value="${param.start}" name="start"/>
-                                            </div>
-                                            <div style="float: left; margin-left:20px;">
-                                                Lodging end:<br/>
-                                                <input type="text" class="input-small datepicker" id="date02" value="${param.end}" name="end"/>
-                                            </div>
-                                            <div style="float: left; margin-left:20px;">
-                                                <br/>
-                                                <button type="submit" class="btn btn-primary">Filter</button>
-
-                                            </div>
-                                            <div style="float: left; margin-left:20px; visibility: hidden;">
-                                                Status:<br/>
-                                                <input type="text" class="input-mini uneditable-input" value="${param.status}" readonly="true" name="status"/>
-
-                                            </div>
-
-
-                                        </div>
-
-
-                                    </div>
-                                </form>
-
-
+                            <div class="box-content">                             
                                 <table class="table table-striped table-bordered bootstrap-datatable datatable">
                                     <thead>
                                         <tr>
-                                            <th>Employee</th>
-                                            <th>Department</th>
-                                            <th>Category</th>
-                                            <th>Date of Lodging</th>
-                                            <th>Date of Closing</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
+                                            <th>User Name</th>
+                                            <th>Department ID</th>
+                                            <th>Full Name</th>
+                                            <th>Email</th>
+                                            <th>Image</th>
+                                            <th>Phone Number</th>
+                                            <th>Address</th>
                                         </tr>
                                     </thead>   
 
                                     <tbody>
 
-                                        <c:forEach var="com" items="${adBean1.getQueries(param.status,paramValues,param.start,param.end)}">
+                                        <c:forEach var="com" items="${adBean1.account}">
                                             <tr>
-
-                                                <td><a href="#?id=${com.user}" style="color: #003bb3; font-weight:bold;"><img src="${adBean1.getAccDetails(com.user,1).imageurl}" style="width:32px; height:32px; margin:-5px; margin-right:5px;"/>${adBean1.getAccDetails(com.user,1).fullname}</a></td>
-                                                <td class="center">${com.depart}</td>
-                                                <td class="center">${com.category}</td>   
-                                                <td class="center" style="color:#73a839; font-weight:bolder;" >${com.datelod}</td>
-                                                <td class="center" style="color:#a9302a; font-weight:bolder;" >${com.dateclose}</td>
-                                                <td class="center">
-                                                    <c:if test="${com.status=='Pending'}">
-                                                        <span class="label label-warning">${com.status}</span>
-                                                    </c:if>
-                                                    <c:if test="${com.status=='Processing'}">
-                                                        <span class="label label-info">${com.status}</span>
-                                                    </c:if>
-                                                    <c:if test="${com.status=='Resolved'}">
-                                                        <span class="label label-success">${com.status}</span>
-                                                    </c:if>
-                                                    <c:if test="${com.status=='NOT Resolved'}">
-                                                        <span class="label label-important">${com.status}</span>
-                                                    </c:if>
-                                                    <c:if test="${com.status=='Cancel'}">
-                                                        <span class="label label-inverse">${com.status}</span>
-                                                    </c:if>
+                                                <td class="center">${com.username}</td>
+                                                <td class="center">${com.departmentid}</td> 
+                                                <td class="center">${com.fullname}</td> 
+                                                <td class="center">${com.email}</td> 
+                                                <td class="center"><img src="${com.imageurl}"/></td> 
+                                                <td class="center">${com.phone}</td> 
+                                                <td class="center">${com.address}</td>                                                 
                                                 </td>
                                                 <td class="center">
-                                                    <a class="btn btn-success" href="#">
-                                                        <i class="icon-zoom-in icon-white"></i>  
-                                                        View                                            
-                                                    </a>
-                                                    <a class="btn btn-info" href="#">
+                                                    <a class="btn btn-info" href="EditUser.jsp?username=${com.username}">
                                                         <i class="icon-edit icon-white"></i>  
                                                         Edit                                            
                                                     </a>
-                                                    <a class="btn btn-danger" href="#">
-                                                        <i class="icon-trash icon-white"></i> 
-                                                        Delete
-                                                    </a>
+
                                                 </td>
-
                                             </tr>
-
                                         </c:forEach>
-
                                     </tbody>
-
                                 </table>
-
                             </div>
-
-
                         </div><!--/span-->
 
                     </div><!--/row-->	
