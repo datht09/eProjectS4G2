@@ -63,6 +63,10 @@ public class loginAction extends ActionSupport implements SessionAware{
             session.put("admin", user);
             addActionMessage("Login Success");
             return "ADMIN";
+        }else if(function.checkLogin(user, pass, 2)) {
+            session.put("tech", user);
+            addActionMessage("Login Success");
+            return "TECH";
         } else {
            if(getSession().containsKey("user")){
                getSession().remove("user");

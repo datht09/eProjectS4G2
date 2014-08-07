@@ -8,6 +8,7 @@
         <action name="loginAction" class="MyAction.loginAction">
             <result>homered.jsp</result>
             <result name="ADMIN">red.jsp</result>
+            <result name="TECH">/Technician/index.jsp</result>
             <result name="FAILED">homered.jsp</result>
         </action>
         <action name="sendQueryAction" class="MyAction.sendQueryAction">

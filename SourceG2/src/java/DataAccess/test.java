@@ -12,7 +12,7 @@ package DataAccess;
  */
 public class test {
     public static void main(String[] args) {
-        DBFunction db = new DBFunction();
-        System.out.println(db.countPage(db.countQueryByUser("employee1")));
+        Technician db = new Technician();
+        System.out.println(db.getNewTotal(100, "tech1"));
     }
 }

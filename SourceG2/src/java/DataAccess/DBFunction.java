@@ -202,7 +202,9 @@ public class DBFunction {
             preparedStatement.setString(2, password);
             preparedStatement.setInt(3, role);
             ResultSet rs = preparedStatement.executeQuery();
-            result = rs.next();
+            while(rs.next()){
+                result = true;
+            }
             preparedStatement.close();
 
         } catch (SQLException ex) {
